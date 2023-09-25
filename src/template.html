@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script src="./script.js" type="module"></script>
   </head>
 
   <body>
@@ -12,16 +13,44 @@
     </header>
     <main>
       <div class="container">
-        <div class="content"></div>
-        <aside class="sidebar">
+        <div id="content">
+          <form action="#">
+            <label for="title">
+              title:
+              <input type="text" id="title" maxlength="20" required />
+            </label>
+            <label for="description">
+              description:
+              <textarea id="description" rows="5" cols="30"></textarea>
+            </label>
+            <label for="priority">
+              priority:
+              <select id="priority">
+                <option value="low" selected>low</option>
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+              </select>
+            </label>
+            <label for="date">
+              due date:
+              <input type="date" />
+            </label>
+          </form>
+        </div>
+        <aside id="sidebar">
           <div class="nav">
-            <div class="home">all</div>
-            <div class="today">due today</div>
-            <div class="this-week">due this week</div>
-            <div class="completed">completed</div>
-            <div class="incomplete">incomplete</div>
+            <div class="nav-item" id="home">all</div>
+            <div class="nav-item" id="today">due today</div>
+            <div class="nav-item" id="this-week">due this week</div>
+            <div class="nav-item" id="completed">completed</div>
+            <div class="nav-item" id="pending">pending</div>
           </div>
           <h2>Categories</h2>
+          <div class="nav">
+            <div class="nav-item" id="priority-low">priority: low</div>
+            <div class="nav-item" id="priority-medium">priority: medium</div>
+            <div class="nav-item" id="priority-high">priority: high</div>
+          </div>
         </aside>
       </div>
     </main>
