@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" type="module"></script>
   </head>
 
@@ -13,8 +14,25 @@
     </header>
     <main>
       <div class="container">
+        <aside id="sidebar">
+          <div class="nav">
+            <div class="nav-item" id="home">all</div>
+            <div class="nav-item" id="today">due today</div>
+            <div class="nav-item" id="this-week">due this week</div>
+            <div class="nav-item" id="pending">pending</div>
+            <div class="nav-item" id="completed">completed</div>
+          </div>
+          <h2>Categories</h2>
+          <div class="nav">
+            <div class="nav-item" id="priority-low">priority: low</div>
+            <div class="nav-item" id="priority-medium">priority: medium</div>
+            <div class="nav-item" id="priority-high">priority: high</div>
+          </div>
+        </aside>
+
         <div id="content">
-          <form action="#">
+          <button class="add btn" id="add-btn">add task</button>
+          <form action="#" class="hidden">
             <label for="title">
               title:
               <input type="text" id="title" maxlength="20" required />
@@ -37,23 +55,8 @@
             </label>
           </form>
         </div>
-        <aside id="sidebar">
-          <div class="nav">
-            <div class="nav-item" id="home">all</div>
-            <div class="nav-item" id="today">due today</div>
-            <div class="nav-item" id="this-week">due this week</div>
-            <div class="nav-item" id="completed">completed</div>
-            <div class="nav-item" id="pending">pending</div>
-          </div>
-          <h2>Categories</h2>
-          <div class="nav">
-            <div class="nav-item" id="priority-low">priority: low</div>
-            <div class="nav-item" id="priority-medium">priority: medium</div>
-            <div class="nav-item" id="priority-high">priority: high</div>
-          </div>
-        </aside>
       </div>
     </main>
-    <footer></footer>
+    <footer>mwahyd</footer>
   </body>
 </html>
