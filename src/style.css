@@ -28,11 +28,16 @@ body {
 .add.btn {
   background-color: transparent;
   border-radius: 5px;
+  box-shadow: 0 0 10px 10px rgba(201, 201, 201, 0.3);
 }
 
 .add.btn::before {
   content: "\002B";
   font-size: 5rem;
+}
+
+.add.btn:hover {
+  background-color: #ededed;
 }
 
 /* action classes */
