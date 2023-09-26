@@ -20,8 +20,32 @@ export default (function TodoForm() {
   };
 
   const _processForm = function ([addBtn, form]) {
+    const data = [];
     console.log(addBtn);
-    console.log(form);
+    const input = form.children[0].children[0];
+    const description = form.children[1].children[0];
+    const priority = form.children[2].children[0];
+    const dueDate = form.children[3].children[0];
+
+    if (input.value.trim() === "") {
+      alert("title cannot be empty");
+      input.value = "";
+      return;
+    }
+    data.push({ title: input.value.toLowerCase() });
+    data.push({ description: description.value.toLowerCase().trim() });
+    data.push({ priority: priority.value.toLowerCase() });
+    data.push({ dueDate: dueDate.value });
+
+    input.value = "";
+    description.value = "";
+    DOM.updateDatePicker();
+
+    form.classList.add("hidden");
+    addBtn.classList.remove("hidden");
+
+    console.log(data);
+    return data;
   };
 
   return {
