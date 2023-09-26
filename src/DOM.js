@@ -4,6 +4,7 @@ export const DOM = {
   init: function () {
     this.cacheDOM();
     this.bindEvents();
+    this.updateDatePicker();
   },
 
   cacheDOM: function () {
@@ -16,6 +17,7 @@ export const DOM = {
     this.addTaskBtn = this.docu.querySelector("#add-btn");
     this.saveFormBtn = this.docu.querySelector("#save-btn");
     this.cancelFormBtn = this.docu.querySelector("#cancel-btn");
+    this.datePicker = this.docu.querySelector("#datePicker");
   },
 
   bindEvents: function () {
@@ -53,6 +55,9 @@ export const DOM = {
   },
 
   // support functions
+  updateDatePicker: function () {
+    this.datePicker.valueAsDate = new Date();
+  },
 };
 
 DOM.init();
