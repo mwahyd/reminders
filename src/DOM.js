@@ -12,6 +12,7 @@ export const DOM = {
     this.mainContainer = this.docu.querySelector(".container");
     this.content = this.docu.querySelector("#content");
     this.sidebar = this.docu.querySelector("#sidebar");
+    this.form = this.docu.querySelector("#form");
     this.addTaskBtn = this.docu.querySelector("#add-btn");
     this.saveFormBtn = this.docu.querySelector("#save-btn");
     this.cancelFormBtn = this.docu.querySelector("#cancel-btn");
@@ -32,9 +33,9 @@ export const DOM = {
   // handler functions
   onAddBtnClicked: function (event) {
     event.preventDefault();
-    console.log(event.target);
     // announce the button is clicked to subscribers
-    pubsub.publish("addTaskClicked", event.target);
+    pubsub.publish("addTaskClicked", event.target, this.form);
+    console.log("add button clicked");
   },
 
   onFormBtnClicked: function (event) {
@@ -43,10 +44,10 @@ export const DOM = {
     switch (event.target.id) {
       case "save-btn":
         // announce the save button clicked to subscribers
-        pubsub.publish("formSaveBtnClicked", event.target);
+        pubsub.publish("formSaveBtnClicked", this.addTaskBtn, this.form);
         break;
       case "cancel-btn":
-        pubsub.publish("formCancelBtnClicked", event.target);
+        pubsub.publish("formCancelBtnClicked", this.addTaskBtn, this.form);
         break;
     }
   },
