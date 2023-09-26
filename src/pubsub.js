@@ -8,15 +8,16 @@ export const pubsub = {
     this.events[eventName] = this.events[eventName] || [];
     // then save the function that called for this event in the list
     this.events[eventName].push(func);
-    console.log("PUBSUB: " + this.events);
+    console.log("PUBSUB: ");
+    console.log(this.events);
   },
 
   unsubscribe: function (eventName, func) {
     // remove func from the event list to stop listening
   },
 
-  publish: function (eventName, data) {
-    console.log(`PUBSUB: broadcast about ${eventName} with ${data}`);
+  publish: function (eventName, ...data) {
+    console.dir(`PUBSUB: broadcast about ${eventName} with ${data}`);
     // announce the event to anyone who is subscribed
     if (this.events[eventName]) {
       this.events[eventName].forEach((func) => func(data));
