@@ -32,7 +32,7 @@
 
         <div id="content">
           <button class="add btn" id="add-btn">add task</button>
-          <form action="#" class="hidden">
+          <form action="#" id="form" class="hidden">
             <label for="title">
               title:
               <input type="text" id="title" maxlength="20" required />
@@ -53,6 +53,10 @@
               due date:
               <input type="date" />
             </label>
+            <div class="confirmation">
+              <button class="save btn" id="save-btn">save</button>
+              <button class="cancel btn" id="cancel-btn">cancel</button>
+            </div>
           </form>
         </div>
       </div>
