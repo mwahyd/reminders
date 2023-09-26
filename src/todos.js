@@ -10,14 +10,26 @@ export default (function Tasks() {
 
   const _saveTask = ([data, container]) => {
     // create task ID, (use length of array in local storage)
+    const taskID = _getDataFromStorage().length + 1;
+
     // create date stamp (date of creation)
+    const date = new Date();
+    const st = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+    // merge all the objects from data into one
+    data = Object.assign({}, ...data);
+    data["taskID"] = taskID;
+    data["createdDate"] = st;
+
     // store task in local storage
+    _addDataToStorage(data);
+
     console.log(data);
     console.log(container);
   };
 
   const _addDataToStorage = (task) => {
-    let dataFromStorage = _getDataFromStorage();
+    const dataFromStorage = _getDataFromStorage();
     dataFromStorage.push(task);
     localStorage.setItem("tasksArray", JSON.stringify(dataFromStorage));
   };
