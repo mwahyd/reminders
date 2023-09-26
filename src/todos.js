@@ -17,13 +17,7 @@ export default (function Tasks() {
   };
 
   const _addDataToStorage = (task) => {
-    let dataFromStorage;
-
-    if (localStorage.getItem("tasksArray") === null) {
-      dataFromStorage = [];
-    } else {
-      dataFromStorage = JSON.parse(localStorage.getItem("tasksArray"));
-    }
+    let dataFromStorage = _getDataFromStorage();
     dataFromStorage.push(task);
     localStorage.setItem("tasksArray", JSON.stringify(dataFromStorage));
   };
