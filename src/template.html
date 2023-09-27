@@ -32,7 +32,7 @@
 
         <div id="content">
           <button class="add btn" id="add-btn">add task</button>
-          <form action="#" id="form" class="hidden">
+          <form action="#" id="form" class="hidden modal">
             <label for="title">
               title:
               <input type="text" id="title" maxlength="20" required />
@@ -51,13 +51,14 @@
             </label>
             <label for="date">
               due date:
-              <input type="date" />
+              <input type="date" id="datePicker" />
             </label>
             <div class="confirmation">
               <button class="save btn" id="save-btn">save</button>
               <button class="cancel btn" id="cancel-btn">cancel</button>
             </div>
           </form>
+          <div id="overlay" class="blur hidden"></div>
         </div>
       </div>
     </main>
