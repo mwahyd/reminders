@@ -63,3 +63,16 @@ body {
   backdrop-filter: blur(3px);
   z-index: 1;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.flex-sb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.red-border {
+  border: 2px solid red;
+}
