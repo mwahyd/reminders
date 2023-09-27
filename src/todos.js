@@ -26,9 +26,9 @@ export default (function Tasks() {
     data["createdDate"] = st;
 
     // store task in local storage
-    _addDataToStorage(dataObj);
+    _addDataToStorage(data);
 
-    console.log(dataObj);
+    console.log(data);
     console.log(container);
   };
 
