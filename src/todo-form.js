@@ -3,25 +3,26 @@ import { pubsub } from "./pubsub.js";
 
 export default (function TodoForm() {
   const render = function () {
-    // ask pubsub controller to notify when addTaskClicked event occurs
+    // ask pubsub controller to notify when following events occur
     pubsub.subscribe("addTaskClicked", _showFormHideButton);
     pubsub.subscribe("formCancelBtnClicked", _showBtnHideForm);
     pubsub.subscribe("formSaveBtnClicked", _processForm);
   };
 
-  const _showFormHideButton = function ([button, form]) {
+  const _showFormHideButton = function ([button, form, overlay]) {
     button.classList.add("hidden");
     form.classList.remove("hidden");
+    overlay.classList.remove("hidden");
   };
 
-  const _showBtnHideForm = function ([addBtn, form]) {
+  const _showBtnHideForm = function ([addBtn, form, overlay]) {
     addBtn.classList.remove("hidden");
     form.classList.add("hidden");
+    overlay.classList.add("hidden");
   };
 
-  const _processForm = function ([addBtn, form]) {
+  const _processForm = function ([addBtn, form, overlay]) {
     const data = [];
-    console.log(addBtn);
     const input = form.children[0].children[0];
     const description = form.children[1].children[0];
     const priority = form.children[2].children[0];
@@ -32,6 +33,7 @@ export default (function TodoForm() {
       input.value = "";
       return;
     }
+
     data.push({ title: input.value.toLowerCase() });
     data.push({ description: description.value.toLowerCase().trim() });
     data.push({ priority: priority.value.toLowerCase() });
@@ -42,10 +44,11 @@ export default (function TodoForm() {
     DOM.updateDatePicker();
 
     form.classList.add("hidden");
+    overlay.classList.add("hidden");
     addBtn.classList.remove("hidden");
 
-    console.log(data);
-    return data;
+    pubsub.publish("newTaskCreated", data, form.parentElement);
+    // return data;
   };
 
   return {
