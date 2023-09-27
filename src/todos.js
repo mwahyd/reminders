@@ -20,14 +20,15 @@ export default (function Tasks() {
     const st = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
     // merge all the objects from data into one object
+
     data = Object.assign({}, ...data);
     data["taskID"] = taskID;
     data["createdDate"] = st;
 
     // store task in local storage
-    _addDataToStorage(data);
+    _addDataToStorage(dataObj);
 
-    console.log(data);
+    console.log(dataObj);
     console.log(container);
   };
 
