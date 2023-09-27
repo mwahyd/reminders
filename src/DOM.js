@@ -14,6 +14,7 @@ export const DOM = {
     this.content = this.docu.querySelector("#content");
     this.sidebar = this.docu.querySelector("#sidebar");
     this.form = this.docu.querySelector("#form");
+    this.overlay = this.docu.querySelector("#overlay");
     this.addTaskBtn = this.docu.querySelector("#add-btn");
     this.saveFormBtn = this.docu.querySelector("#save-btn");
     this.cancelFormBtn = this.docu.querySelector("#cancel-btn");
@@ -36,7 +37,7 @@ export const DOM = {
   onAddBtnClicked: function (event) {
     event.preventDefault();
     // announce the button is clicked to subscribers
-    pubsub.publish("addTaskClicked", event.target, this.form);
+    pubsub.publish("addTaskClicked", event.target, this.form, this.overlay);
     console.log("add button clicked");
   },
 
@@ -46,10 +47,20 @@ export const DOM = {
     switch (event.target.id) {
       case "save-btn":
         // announce the save button clicked to subscribers
-        pubsub.publish("formSaveBtnClicked", this.addTaskBtn, this.form);
+        pubsub.publish(
+          "formSaveBtnClicked",
+          this.addTaskBtn,
+          this.form,
+          this.overlay
+        );
         break;
       case "cancel-btn":
-        pubsub.publish("formCancelBtnClicked", this.addTaskBtn, this.form);
+        pubsub.publish(
+          "formCancelBtnClicked",
+          this.addTaskBtn,
+          this.form,
+          this.overlay
+        );
         break;
     }
   },
