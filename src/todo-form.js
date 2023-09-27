@@ -9,16 +9,14 @@ export default (function TodoForm() {
     pubsub.subscribe("formSaveBtnClicked", _processForm);
   };
 
-  const _showFormHideButton = function ([button, form, overlay]) {
-    button.classList.add("hidden");
+  const _showFormHideButton = function ([addBtn, form, overlay]) {
+    addBtn.classList.add("hidden");
     form.classList.remove("hidden");
     overlay.classList.remove("hidden");
   };
 
   const _showBtnHideForm = function ([addBtn, form, overlay]) {
-    addBtn.classList.remove("hidden");
-    form.classList.add("hidden");
-    overlay.classList.add("hidden");
+    _addAddRemoveHidden(addBtn, form, overlay);
   };
 
   const _processForm = function ([addBtn, form, overlay]) {
@@ -43,12 +41,16 @@ export default (function TodoForm() {
     description.value = "";
     DOM.updateDatePicker();
 
-    form.classList.add("hidden");
-    overlay.classList.add("hidden");
-    addBtn.classList.remove("hidden");
+    _addAddRemoveHidden(addBtn, form, overlay);
 
     pubsub.publish("newTaskCreated", data, form.parentElement);
     // return data;
+  };
+
+  const _addAddRemoveHidden = (addBtn, form, overlay) => {
+    form.classList.add("hidden");
+    overlay.classList.add("hidden");
+    addBtn.classList.remove("hidden");
   };
 
   return {
