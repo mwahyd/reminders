@@ -16,12 +16,11 @@ export default (function Tasks() {
 
     // create date stamp (date of creation)
     const date = new Date();
-    const st = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
     // merge all the objects from data into one object
     data = Object.assign({}, ...data);
     data["taskID"] = taskID;
-    data["createdDate"] = st;
+    data["issuedDate"] = date.toLocaleDateString("en-GB");
 
     // store task in local storage
     _addDataToStorage(data);
@@ -73,11 +72,11 @@ export default (function Tasks() {
   const _createTaskElements = (obj) => {
     const container = document.createElement("div");
     container.setAttribute("data-index", obj["taskID"]);
-    container.classList.add("red-border");
+    container.classList.add("red-border"); //                            ! delete later
     container.innerHTML = `
       <div class="task-header flex-sb">
         <p>taskID: <span>${obj["taskID"]}</span></p>
-        <p>issued: <span>${obj["createdDate"]}</span>
+        <p>issued: <span>${obj["issuedDate"]}</span>
       </div>
 
       <div id="task-priority"><p>priority: <span>${obj["priority"]}</span></p></div>
