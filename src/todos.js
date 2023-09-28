@@ -68,9 +68,7 @@ export default (function Tasks() {
   };
 
   const _delBtnClicked = (btn, contentDiv) => {
-    if (!confirm("Are you sure you want to remove this item?")) {
-      return;
-    }
+    if (!confirm("Are you sure you want to remove this item?")) return;
     _removeItemFromArray(btn);
     _createTaskCards(contentDiv);
   };
