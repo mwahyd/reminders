@@ -9,8 +9,8 @@ export const DOM = {
 
   cacheDOM: function () {
     this.docu = document.querySelector("body");
-    this.header = this.docu.querySelector("header");
-    this.mainContainer = this.docu.querySelector(".container");
+    // this.header = this.docu.querySelector("header");
+    // this.mainContainer = this.docu.querySelector(".container");
     this.content = this.docu.querySelector("#content");
     this.sidebar = this.docu.querySelector("#sidebar");
     this.form = this.docu.querySelector("#form");
@@ -30,6 +30,10 @@ export const DOM = {
     this.cancelFormBtn.addEventListener(
       "click",
       this.onFormBtnClicked.bind(this)
+    );
+    this.content.lastElementChild.addEventListener(
+      "click",
+      this.delegateEditDelBtns.bind(this)
     );
   },
 
@@ -63,6 +67,13 @@ export const DOM = {
         );
         break;
     }
+  },
+
+  delegateEditDelBtns: function (event) {
+    if (event.target.nodeName !== "BUTTON") {
+      return;
+    }
+    pubsub.publish("taskCardBtnClicked", event.target, this.content);
   },
 
   // support functions
