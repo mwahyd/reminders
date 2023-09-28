@@ -60,6 +60,10 @@ export default (function Tasks() {
     localStorage.setItem("tasksArray", JSON.stringify(dataFromStorage));
   };
 
+  const _updateDataInStorage = (array) => {
+    localStorage.setItem("tasksArray", JSON.stringify(array));
+  };
+
   const _getDataFromStorage = () => {
     let dataFromStorage;
 
@@ -71,22 +75,31 @@ export default (function Tasks() {
     return dataFromStorage;
   };
 
-  const _taskCardBtnClicked = ([clickedBtn, tasksContainer]) => {
+  const _taskCardBtnClicked = ([clickedBtn, contentDiv]) => {
     clickedBtn.id === "delete-btn"
-      ? _delBtnClicked(clickedBtn, tasksContainer)
-      : _editBtnClicked(clickedBtn, tasksContainer);
+      ? _delBtnClicked(clickedBtn, contentDiv)
+      : _editBtnClicked(clickedBtn, contentDiv);
   };
 
-  const _delBtnClicked = (btn, parent) => {
+  const _delBtnClicked = (btn, contentDiv) => {
     console.log(btn);
-    console.log(parent);
+    console.log(contentDiv);
+    // find taskID of task
+    const taskID =
+      btn.parentElement.parentElement.parentElement.getAttribute("data-index");
     // get new list from local storage
+    const taskArray = _getDataFromStorage();
+    console.log(taskArray);
     // delete the item from the list
+    taskArray.splice(taskID - 1, 1);
+    console.log(taskArray);
     // update the list
+    _updateDataInStorage(taskArray);
     // call render
+    _createTaskCards(contentDiv);
   };
 
-  const _editBtnClicked = (btn, parent) => {
+  const _editBtnClicked = (btn, contentDiv) => {
     console.log(btn);
   };
 
