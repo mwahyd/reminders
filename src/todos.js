@@ -15,7 +15,11 @@ export default (function Tasks() {
 
   const _saveTask = ([data, container]) => {
     // create task ID, (use length of array in local storage)
-    const taskID = _getDataFromStorage().length + 1;
+    let taskID;
+    const tasksArray = _getDataFromStorage();
+    tasksArray.length === 0
+      ? (taskID = tasksArray.length + 1)
+      : (taskID = tasksArray.at(-1)["taskID"] + 1);
 
     // create date stamp (date of creation)
     const date = new Date();
@@ -40,10 +44,10 @@ export default (function Tasks() {
     // get data from storage
     const tasks = _getDataFromStorage();
     // if empty display none; else display on DOM
-    if (tasks.length === 0) {
-      console.log("array empty");
-      return;
-    }
+    // if (tasks.length === 0) {
+    //   console.log("array empty");
+    //   return;
+    // }
     console.log(tasks);
     contentDiv.lastElementChild.innerHTML = "";
     tasks.forEach((task) => {
@@ -82,21 +86,18 @@ export default (function Tasks() {
   };
 
   const _delBtnClicked = (btn, contentDiv) => {
-    console.log(btn);
-    console.log(contentDiv);
-    // find taskID of task
-    const taskID =
-      btn.parentElement.parentElement.parentElement.getAttribute("data-index");
-    // get new list from local storage
-    const taskArray = _getDataFromStorage();
-    console.log(taskArray);
-    // delete the item from the list
-    taskArray.splice(taskID - 1, 1);
-    console.log(taskArray);
-    // update the list
-    _updateDataInStorage(taskArray);
-    // call render
+    _removeItemFromArray(btn);
     _createTaskCards(contentDiv);
+  };
+
+  const _removeItemFromArray = (btn) => {
+    const taskArray = _getDataFromStorage();
+    const taskID = Number(
+      btn.parentElement.parentElement.parentElement.getAttribute("data-index")
+    );
+    // - remove the item based on the taskID by filtering it
+    const updatedArray = taskArray.filter((obj) => obj["taskID"] !== taskID);
+    _updateDataInStorage(updatedArray);
   };
 
   const _editBtnClicked = (btn, contentDiv) => {
