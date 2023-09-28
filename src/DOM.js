@@ -70,7 +70,7 @@ export const DOM = {
   },
 
   delegateEditDelBtns: function (event) {
-    if (event.target.nodeName !== "BUTTON") {
+    if (!event.target.classList.contains("edit")) {
       return;
     }
     pubsub.publish("taskCardBtnClicked", event.target, this.content);
