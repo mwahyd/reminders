@@ -35,7 +35,7 @@ export default (function TodoForm() {
     data.push({ title: input.value.toLowerCase() });
     data.push({ description: description.value.toLowerCase().trim() });
     data.push({ priority: priority.value.toLowerCase() });
-    data.push({ dueDate: dueDate.value });
+    data.push({ dueDate: new Date(dueDate.value).toLocaleDateString("en-GB") });
 
     input.value = "";
     description.value = "";
