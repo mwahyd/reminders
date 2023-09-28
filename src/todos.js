@@ -82,7 +82,17 @@ export default (function Tasks() {
       <div id="task-priority"><p>priority: <span>${obj["priority"]}</span></p></div>
       <div id="task-title"><p>title: <span class="bold">${obj["title"]}</span></p></div>
       <div id="task-description"><p>description: <span>${obj["description"]}</span></p></div>
-      <div id="task-due"><p>due: <span>${obj["dueDate"]}</span></p></div>
+      <div id="task-due" class="flex-sb">
+        <p>due: <span>${obj["dueDate"]}</span></p>
+        <div class="options">
+          <button class="edit btn" id="edit-btn">
+            <span class="icon icon-edit">&#x1F589;</span> edit
+          </button>
+          <button class="delete btn" id="delete-btn">
+            <span class="icon icon-delete">&#128465;</span> delete
+          </button>
+        </div>
+      </div>
     `;
     return container;
   };
