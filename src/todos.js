@@ -14,48 +14,30 @@ export default (function Tasks() {
   };
 
   const _saveTask = ([data, container]) => {
-    // create task ID, (use length of array in local storage)
     let taskID;
     const tasksArray = _getDataFromStorage();
     tasksArray.length === 0
       ? (taskID = tasksArray.length + 1)
       : (taskID = tasksArray.at(-1)["taskID"] + 1);
-
     // create date stamp (date of creation)
     const date = new Date();
-
     // merge all the objects from data into one object
     data = Object.assign({}, ...data);
     data["taskID"] = taskID;
     data["issuedDate"] = date.toLocaleDateString("en-GB");
-
     // store task in local storage
     _addDataToStorage(data);
-
     // call task cards render to update DOM
     _createTaskCards(container);
-
-    console.log(data);
-    console.log(container);
   };
 
   const _createTaskCards = (contentDiv) => {
-    // listen for a task saved in storage
-    // get data from storage
     const tasks = _getDataFromStorage();
-    // if empty display none; else display on DOM
-    // if (tasks.length === 0) {
-    //   console.log("array empty");
-    //   return;
-    // }
-    console.log(tasks);
     contentDiv.lastElementChild.innerHTML = "";
     tasks.forEach((task) => {
       const elements = _createTaskElements(task);
       contentDiv.lastElementChild.appendChild(elements);
     });
-
-    // create a task card for each item stored in storage
   };
 
   const _addDataToStorage = (task) => {
@@ -95,7 +77,7 @@ export default (function Tasks() {
     const taskID = Number(
       btn.parentElement.parentElement.parentElement.getAttribute("data-index")
     );
-    // - remove the item based on the taskID by filtering it
+    // remove the item based on the taskID by filtering it
     const updatedArray = taskArray.filter((obj) => obj["taskID"] !== taskID);
     _updateDataInStorage(updatedArray);
   };
