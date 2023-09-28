@@ -1,13 +1,16 @@
 import { pubsub } from "./pubsub.js";
 
 export default (function Tasks() {
+  // ! should not call document here ...
+  const contentContainer = document.querySelector("#content");
+
   const render = () => {
     // listen to a new task created event
     pubsub.subscribe("newTaskCreated", _saveTask);
+    pubsub.subscribe("taskCardBtnClicked", _taskCardBtnClicked);
 
     // display task cards if stored in local storage
-    // ! should not call document here ...
-    _createTaskCards(document.querySelector("#content"));
+    _createTaskCards(contentContainer);
   };
 
   const _saveTask = ([data, container]) => {
@@ -68,7 +71,25 @@ export default (function Tasks() {
     return dataFromStorage;
   };
 
-  // _createTaskCards();
+  const _taskCardBtnClicked = ([clickedBtn, tasksContainer]) => {
+    clickedBtn.id === "delete-btn"
+      ? _delBtnClicked(clickedBtn, tasksContainer)
+      : _editBtnClicked(clickedBtn, tasksContainer);
+  };
+
+  const _delBtnClicked = (btn, parent) => {
+    console.log(btn);
+    console.log(parent);
+    // get new list from local storage
+    // delete the item from the list
+    // update the list
+    // call render
+  };
+
+  const _editBtnClicked = (btn, parent) => {
+    console.log(btn);
+  };
+
   const _createTaskElements = (obj) => {
     const container = document.createElement("div");
     container.setAttribute("data-index", obj["taskID"]);
