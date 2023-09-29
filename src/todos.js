@@ -3,6 +3,7 @@ import { pubsub } from "./pubsub.js";
 export default (function Tasks() {
   // ! should not call document here ......
   const contentContainer = document.querySelector("#content");
+  let dataUpdated = false;
 
   const render = () => {
     // listen to a new task created event
@@ -90,6 +91,12 @@ export default (function Tasks() {
     console.log(taskToEdit);
     _displayForm(contentDiv);
     _populateForm(form, taskToEdit);
+
+    // subscribe to save button clicked for update
+
+    pubsub.subscribe("taskFromEdited", (data) => {
+      const updatedData = _updatedData(data, taskToEdit);
+    });
   };
 
   const _getTaskToEdit = (btn) => {
@@ -123,6 +130,19 @@ export default (function Tasks() {
   };
 
   // when save button clicked, update the array and put back to local storage
+  const _updatedData = ([form], taskToEdit) => {
+    const formElements = _getFormElements(form);
+    formElements.forEach((element) => {
+      console.log(element.id, element.value);
+      Object.keys(taskToEdit).forEach((key) => {
+        if (key === element.id) {
+          taskToEdit[key] = element.value;
+        }
+      });
+    });
+    console.log(taskToEdit);
+    return taskToEdit;
+  };
 
   const _getFormElements = (form) => {
     return [
