@@ -86,9 +86,10 @@ export default (function Tasks() {
   const _editBtnClicked = (btn, contentDiv) => {
     console.log(btn.parentElement.parentElement.parentElement, contentDiv);
     // when edit button is clicked, fill the form with task data
-    const taskToEdit = _getTaskToEdit(btn);
+    const [taskToEdit] = _getTaskToEdit(btn);
     console.log(taskToEdit);
-    _displayAndPopulateForm(btn, contentDiv, taskToEdit);
+    _displayForm(contentDiv);
+    _populateForm(form, taskToEdit);
   };
 
   const _getTaskToEdit = (btn) => {
@@ -100,11 +101,36 @@ export default (function Tasks() {
     return taskToEdit;
   };
 
-  const _displayAndPopulateForm = (btn, contentDiv, task) => {
+  const _displayForm = (contentDiv) => {
     const form = contentDiv.children[1];
     const overlay = contentDiv.children[2];
     form.classList.remove("hidden");
     overlay.classList.remove("hidden");
+    console.log(_getFormElements(form));
+
+    // add edit class to save button
+    const saveBtn = form.lastElementChild.firstElementChild;
+    saveBtn.classList.add("edit");
+    saveBtn.textContent = "update";
+  };
+
+  const _populateForm = (form, task) => {
+    const [title, des, priority, due] = _getFormElements(form);
+    title.value = task["title"];
+    des.value = task["description"];
+    priority.value = task["priority"];
+    due.value = task["dueDate"];
+  };
+
+  // when save button clicked, update the array and put back to local storage
+
+  const _getFormElements = (form) => {
+    return [
+      form.children[0].children[0], // title
+      form.children[1].children[0], // des
+      form.children[2].children[0], // priority
+      form.children[3].children[0], // dueDate
+    ];
   };
 
   const _createTaskElements = (obj) => {
