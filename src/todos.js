@@ -96,6 +96,7 @@ export default (function Tasks() {
 
     pubsub.subscribe("taskFromEdited", (data) => {
       const updatedData = _updatedData(data, taskToEdit);
+      _updateExistingData(updatedData, contentDiv);
     });
   };
 
@@ -140,8 +141,21 @@ export default (function Tasks() {
         }
       });
     });
-    console.log(taskToEdit);
     return taskToEdit;
+  };
+
+  const _updateExistingData = (updatedTask, contentDiv) => {
+    const taskArray = _getDataFromStorage();
+    console.log(updatedTask);
+    console.log(taskArray);
+    taskArray.forEach((task, index) => {
+      if (task["taskID"] === updatedTask["taskID"]) {
+        taskArray[index] = updatedTask;
+      }
+    });
+    console.dir({ taskArray });
+    _updateDataInStorage(taskArray);
+    _createTaskCards(contentDiv);
   };
 
   const _getFormElements = (form) => {
