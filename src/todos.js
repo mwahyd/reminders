@@ -3,7 +3,6 @@ import { pubsub } from "./pubsub.js";
 export default (function Tasks() {
   // ! should not call document here ......
   const contentContainer = document.querySelector("#content");
-  let dataUpdated = false;
 
   const render = () => {
     // listen to a new task created event
@@ -122,6 +121,13 @@ export default (function Tasks() {
     saveBtn.textContent = "update";
   };
 
+  const _hideForm = (contentDiv) => {
+    const form = contentDiv.children[1];
+    const overlay = contentDiv.children[2];
+    form.classList.add("hidden");
+    overlay.classList.add("hidden");
+  };
+
   const _populateForm = (form, task) => {
     const [title, des, priority, due] = _getFormElements(form);
     title.value = task["title"];
@@ -151,11 +157,13 @@ export default (function Tasks() {
     taskArray.forEach((task, index) => {
       if (task["taskID"] === updatedTask["taskID"]) {
         taskArray[index] = updatedTask;
+        // return;
       }
     });
     console.dir({ taskArray });
     _updateDataInStorage(taskArray);
-    _createTaskCards(contentDiv);
+    _hideForm(contentDiv);
+    location.reload();
   };
 
   const _getFormElements = (form) => {
