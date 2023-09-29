@@ -1,7 +1,7 @@
 import { pubsub } from "./pubsub.js";
 
 export default (function Tasks() {
-  // ! should not call document here ...
+  // ! should not call document here ......
   const contentContainer = document.querySelector("#content");
 
   const render = () => {
@@ -84,10 +84,31 @@ export default (function Tasks() {
   };
 
   const _editBtnClicked = (btn, contentDiv) => {
-    console.log(btn);
+    console.log(btn.parentElement.parentElement.parentElement, contentDiv);
+    // when edit button is clicked, fill the form with task data
+    const taskToEdit = _getTaskToEdit(btn);
+    console.log(taskToEdit);
+    _displayAndPopulateForm(btn, contentDiv, taskToEdit);
+  };
+
+  const _getTaskToEdit = (btn) => {
+    const taskArray = _getDataFromStorage();
+    const taskID = Number(
+      btn.parentElement.parentElement.parentElement.getAttribute("data-index")
+    );
+    const taskToEdit = taskArray.filter((obj) => obj["taskID"] === taskID);
+    return taskToEdit;
+  };
+
+  const _displayAndPopulateForm = (btn, contentDiv, task) => {
+    const form = contentDiv.children[1];
+    const overlay = contentDiv.children[2];
+    form.classList.remove("hidden");
+    overlay.classList.remove("hidden");
   };
 
   const _createTaskElements = (obj) => {
+    const due = new Date(obj["dueDate"]).toLocaleDateString("en-GB");
     const container = document.createElement("div");
     container.setAttribute("data-index", obj["taskID"]);
     container.classList.add("red-border"); //                            ! delete later
@@ -101,14 +122,10 @@ export default (function Tasks() {
       <div id="task-title"><p>title: <span class="bold">${obj["title"]}</span></p></div>
       <div id="task-description"><p>description: <span>${obj["description"]}</span></p></div>
       <div id="task-due" class="flex-sb">
-        <p>due: <span>${obj["dueDate"]}</span></p>
+        <p>due: <span>${due}</span></p>
         <div class="options">
-          <button class="edit btn" id="edit-btn">
-            <span class="icon icon-edit">&#x1F589;</span> edit
-          </button>
-          <button class="delete btn" id="delete-btn">
-            <span class="icon icon-delete">&#128465;</span> delete
-          </button>
+          <button class="option edit btn" id="edit-btn">&#x1F589;</button>
+          <button class="option delete btn" id="delete-btn">&#128465;</button>
         </div>
       </div>
     `;
