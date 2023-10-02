@@ -15,7 +15,7 @@ export default (function Tasks() {
 
   const _saveTask = ([data, container]) => {
     let taskID;
-    const tasksArray = _getDataFromStorage();
+    const tasksArray = getDataFromStorage();
     tasksArray.length === 0
       ? (taskID = tasksArray.length + 1)
       : (taskID = tasksArray.at(-1)["taskID"] + 1);
@@ -32,16 +32,16 @@ export default (function Tasks() {
   };
 
   const _createTaskCards = (contentDiv) => {
-    const tasks = _getDataFromStorage();
+    const tasks = getDataFromStorage();
     contentDiv.lastElementChild.innerHTML = "";
     tasks.forEach((task) => {
-      const elements = _createTaskElements(task);
+      const elements = createTaskElements(task);
       contentDiv.lastElementChild.appendChild(elements);
     });
   };
 
   const _addDataToStorage = (task) => {
-    const dataFromStorage = _getDataFromStorage();
+    const dataFromStorage = getDataFromStorage();
     dataFromStorage.push(task);
     localStorage.setItem("tasksArray", JSON.stringify(dataFromStorage));
   };
@@ -50,7 +50,7 @@ export default (function Tasks() {
     localStorage.setItem("tasksArray", JSON.stringify(array));
   };
 
-  const _getDataFromStorage = () => {
+  const getDataFromStorage = () => {
     let dataFromStorage;
 
     if (localStorage.getItem("tasksArray") === null) {
@@ -74,7 +74,7 @@ export default (function Tasks() {
   };
 
   const _removeItemFromArray = (btn) => {
-    const taskArray = _getDataFromStorage();
+    const taskArray = getDataFromStorage();
     const taskID = Number(
       btn.parentElement.parentElement.parentElement.getAttribute("data-index")
     );
@@ -100,7 +100,7 @@ export default (function Tasks() {
   };
 
   const _getTaskToEdit = (btn) => {
-    const taskArray = _getDataFromStorage();
+    const taskArray = getDataFromStorage();
     const taskID = Number(
       btn.parentElement.parentElement.parentElement.getAttribute("data-index")
     );
@@ -144,7 +144,7 @@ export default (function Tasks() {
   };
 
   const _updateExistingData = (updatedTask, contentDiv) => {
-    const taskArray = _getDataFromStorage();
+    const taskArray = getDataFromStorage();
     console.log(updatedTask);
     console.log(taskArray);
     taskArray.forEach((task, index) => {
@@ -167,7 +167,7 @@ export default (function Tasks() {
     ];
   };
 
-  const _createTaskElements = (obj) => {
+  const createTaskElements = (obj) => {
     const due = new Date(obj["dueDate"]).toLocaleDateString("en-GB");
     const container = document.createElement("div");
     container.setAttribute("data-index", obj["taskID"]);
@@ -194,5 +194,7 @@ export default (function Tasks() {
 
   return {
     render,
+    getDataFromStorage,
+    createTaskElements,
   };
 })();
