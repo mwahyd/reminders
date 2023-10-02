@@ -28,6 +28,8 @@ export const DOM = {
       }
     });
 
+    this.sidebar.addEventListener("click", this.onSideBarClicked.bind(this));
+
     this.addTaskBtn.addEventListener("click", this.onAddBtnClicked.bind(this));
     this.saveFormBtn.addEventListener(
       "click",
@@ -84,6 +86,14 @@ export const DOM = {
 
   onEditComplete: function () {
     pubsub.publish("taskFromEdited", this.form);
+  },
+
+  onSideBarClicked: function (event) {
+    console.log(event.target);
+    switch (event.target.id) {
+      case "priority-low":
+        pubsub.publish("priorityLowClicked", event.target, this.content);
+    }
   },
 
   // support functions
