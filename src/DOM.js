@@ -18,7 +18,7 @@ export const DOM = {
     this.addTaskBtn = this.docu.querySelector("#add-btn");
     this.saveFormBtn = this.docu.querySelector("#save-btn");
     this.cancelFormBtn = this.docu.querySelector("#cancel-btn");
-    this.datePicker = this.docu.querySelector("#datePicker");
+    this.datePicker = this.docu.querySelector("#dueDate");
   },
 
   bindEvents: function () {
@@ -89,9 +89,16 @@ export const DOM = {
   },
 
   onSideBarClicked: function (event) {
+    console.log(event.target);
     switch (event.target.id) {
       case "home":
         pubsub.publish("allClicked", event.target);
+        break;
+      case "today":
+        pubsub.publish("dueTodayClicked", event.target, this.content);
+        break;
+      case "this-week":
+        pubsub.publish("dueThisWeekClicked", event.target, this.content);
         break;
       case "priority-low":
         pubsub.publish("priorityClicked", event.target, this.content);
