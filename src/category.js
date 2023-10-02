@@ -7,6 +7,8 @@ export default (function Category() {
     pubsub.subscribe("priorityClicked", _displayPriorityHandler);
     pubsub.subscribe("allClicked", _displayAllTasks);
     pubsub.subscribe("dueTodayClicked", _dueToday);
+    pubsub.subscribe("addCatBtnClicked", _showFormHideBtn);
+    pubsub.subscribe("catSaveCancelClicked", _showBtnHideForm);
   };
 
   const _renderTasks = (tasks, contentDiv) => {
@@ -17,7 +19,7 @@ export default (function Category() {
     });
   };
 
-  const _displayAllTasks = (allButton) => {
+  const _displayAllTasks = ([allButton, contentDiv]) => {
     console.log(allButton);
     // display all the tasks from other categories as well
     document.location.reload();
@@ -54,6 +56,23 @@ export default (function Category() {
       (obj) => obj["priority"] === priority
     );
     _renderTasks(priorityTasks, contentDiv);
+  };
+
+  const _showFormHideBtn = ([catBtn, sidebarDiv]) => {
+    const form =
+      sidebarDiv.lastElementChild.lastElementChild.previousElementSibling;
+    catBtn.classList.add("hidden");
+    form.classList.remove("hidden");
+  };
+
+  const _showBtnHideForm = ([catBtn, sidebarDiv]) => {
+    const form =
+      sidebarDiv.lastElementChild.lastElementChild.previousElementSibling;
+    const btn =
+      sidebarDiv.lastElementChild.lastElementChild.previousElementSibling
+        .previousElementSibling;
+    btn.classList.remove("hidden");
+    form.classList.add("hidden");
   };
 
   // support functions
