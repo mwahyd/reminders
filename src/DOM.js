@@ -89,10 +89,19 @@ export const DOM = {
   },
 
   onSideBarClicked: function (event) {
-    console.log(event.target);
     switch (event.target.id) {
+      case "home":
+        pubsub.publish("allClicked", event.target);
+        break;
       case "priority-low":
-        pubsub.publish("priorityLowClicked", event.target, this.content);
+        pubsub.publish("priorityClicked", event.target, this.content);
+        break;
+      case "priority-medium":
+        pubsub.publish("priorityClicked", event.target, this.content);
+        break;
+      case "priority-high":
+        pubsub.publish("priorityClicked", event.target, this.content);
+        break;
     }
   },
 
