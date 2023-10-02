@@ -22,6 +22,12 @@ export const DOM = {
   },
 
   bindEvents: function () {
+    this.saveFormBtn.addEventListener("mouseup", () => {
+      if (this.saveFormBtn.classList.contains("edit")) {
+        this.onEditComplete();
+      }
+    });
+
     this.addTaskBtn.addEventListener("click", this.onAddBtnClicked.bind(this));
     this.saveFormBtn.addEventListener(
       "click",
@@ -70,10 +76,14 @@ export const DOM = {
   },
 
   delegateEditDelBtns: function (event) {
-    if (!event.target.classList.contains("edit")) {
+    if (!event.target.classList.contains("option")) {
       return;
     }
     pubsub.publish("taskCardBtnClicked", event.target, this.content);
+  },
+
+  onEditComplete: function () {
+    pubsub.publish("taskFromEdited", this.form);
   },
 
   // support functions
