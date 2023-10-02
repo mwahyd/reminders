@@ -113,10 +113,10 @@ export const DOM = {
         pubsub.publish("addCatBtnClicked", event.target, this.sidebar);
         break;
       case "cat-save-btn":
-        pubsub.publish("catSaveCancelClicked", event.target, this.sidebar);
+        pubsub.publish("catSaveCancelClicked", event, this.sidebar);
         break;
       case "cat-cancel-btn":
-        pubsub.publish("catSaveCancelClicked", event.target, this.sidebar);
+        pubsub.publish("catSaveCancelClicked", event, this.sidebar);
         break;
     }
   },
