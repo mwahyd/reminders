@@ -6,6 +6,7 @@ export default (function Category() {
     // listen to each category event and fire associated func
     pubsub.subscribe("priorityClicked", _displayPriorityHandler);
     pubsub.subscribe("allClicked", _displayAllTasks);
+    pubsub.subscribe("dueTodayClicked", _dueToday);
   };
 
   const _renderTasks = (tasks, contentDiv) => {
@@ -20,6 +21,15 @@ export default (function Category() {
     console.log(allButton);
     // display all the tasks from other categories as well
     document.location.reload();
+  };
+
+  const _dueToday = ([dueToday, contentDiv]) => {
+    const today = new Date().toLocaleDateString("en-GB");
+    const allTasks = Tasks.getDataFromStorage();
+    const dueTasks = allTasks.filter(
+      (obj) => _convertDate(obj["dueDate"]) === today
+    );
+    _renderTasks(dueTasks, contentDiv);
   };
 
   const _displayPriorityHandler = ([priority, contentDiv]) => {
@@ -40,8 +50,15 @@ export default (function Category() {
   const _displayPriority = (priority, contentDiv) => {
     console.log(`prority: ${priority} clicked`);
     const allTasks = Tasks.getDataFromStorage();
-    const lowTasks = allTasks.filter((obj) => obj["priority"] === priority);
-    _renderTasks(lowTasks, contentDiv);
+    const priorityTasks = allTasks.filter(
+      (obj) => obj["priority"] === priority
+    );
+    _renderTasks(priorityTasks, contentDiv);
+  };
+
+  // support functions
+  const _convertDate = (date) => {
+    return new Date(date).toLocaleDateString("en-GB");
   };
 
   return {
