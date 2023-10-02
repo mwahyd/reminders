@@ -121,13 +121,6 @@ export default (function Tasks() {
     saveBtn.textContent = "update";
   };
 
-  const _hideForm = (contentDiv) => {
-    const form = contentDiv.children[1];
-    const overlay = contentDiv.children[2];
-    form.classList.add("hidden");
-    overlay.classList.add("hidden");
-  };
-
   const _populateForm = (form, task) => {
     const [title, des, priority, due] = _getFormElements(form);
     title.value = task["title"];
@@ -162,7 +155,6 @@ export default (function Tasks() {
     });
     console.dir({ taskArray });
     _updateDataInStorage(taskArray);
-    _hideForm(contentDiv);
     location.reload();
   };
 
