@@ -133,7 +133,6 @@ export default (function Tasks() {
   const _updatedData = ([form], taskToEdit) => {
     const formElements = _getFormElements(form);
     formElements.forEach((element) => {
-      console.log(element.id, element.value);
       Object.keys(taskToEdit).forEach((key) => {
         if (key === element.id) {
           taskToEdit[key] = element.value;
@@ -155,7 +154,7 @@ export default (function Tasks() {
     });
     console.dir({ taskArray });
     _updateDataInStorage(taskArray);
-    location.reload();
+    setTimeout(() => location.reload(), 100);
   };
 
   const _getFormElements = (form) => {
