@@ -18,15 +18,17 @@ export default (function TodoForm() {
   const _showBtnHideForm = function ([addBtn, form, overlay]) {
     _addAddRemoveHidden(addBtn, form, overlay);
     // if cancel button clicked, remove edit class from save button
-    form.lastElementChild.firstElementChild.classList.remove("edit");
+    const saveBtn = form.lastElementChild.firstElementChild;
+    saveBtn.classList.remove("edit");
     // clear form
     _resetForm();
   };
 
   const _processForm = function ([addBtn, form, overlay]) {
     // if edit class in save button return
-    if (form.lastElementChild.firstElementChild.classList.contains("edit")) {
-      console.log("edit mode");
+    const saveBtn = form.lastElementChild.firstElementChild;
+    if (saveBtn.classList.contains("edit")) {
+      _resetForm();
       return;
     }
     const data = [];
@@ -66,8 +68,10 @@ export default (function TodoForm() {
   const _resetForm = () => {
     form.children[0].children[0].value = "";
     form.children[1].children[0].value = "";
-    form.children[2].children[0].value = "";
+    form.children[2].children[0].value = "low";
     DOM.updateDatePicker();
+    form.lastElementChild.firstElementChild.textContent = "save";
+    form.lastElementChild.firstElementChild.classList.remove("edit");
   };
 
   return {
