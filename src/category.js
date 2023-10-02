@@ -2,6 +2,10 @@ import { pubsub } from "./pubsub.js";
 import Tasks from "./todos.js";
 
 export default (function Category() {
+  // ! should not call document here ......
+  const catContainer = document.querySelector("#category-container");
+  console.log(catContainer);
+
   const render = () => {
     // listen to each category event and fire associated func
     pubsub.subscribe("priorityClicked", _displayPriorityHandler);
@@ -9,6 +13,9 @@ export default (function Category() {
     pubsub.subscribe("dueTodayClicked", _dueToday);
     pubsub.subscribe("addCatBtnClicked", _showFormHideBtn);
     pubsub.subscribe("catSaveCancelClicked", _showBtnHideForm);
+    pubsub.subscribe("newCatCreated", _saveCategory);
+
+    _renderCategories(catContainer);
   };
 
   const _renderTasks = (tasks, contentDiv) => {
@@ -65,7 +72,7 @@ export default (function Category() {
     form.classList.remove("hidden");
   };
 
-  const _showBtnHideForm = ([catBtn, sidebarDiv]) => {
+  const _showBtnHideForm = ([event, sidebarDiv]) => {
     const form =
       sidebarDiv.lastElementChild.lastElementChild.previousElementSibling;
     const btn =
@@ -73,11 +80,48 @@ export default (function Category() {
         .previousElementSibling;
     btn.classList.remove("hidden");
     form.classList.add("hidden");
+    if (event.target.id === "cat-save-btn") _saveBtnClicked(event, form);
+    form.firstElementChild.value = "";
   };
 
   // support functions
   const _convertDate = (date) => {
     return new Date(date).toLocaleDateString("en-GB");
+  };
+
+  const _saveBtnClicked = (event, form) => {
+    event.preventDefault();
+    const input = form.firstElementChild;
+    if (input.value.trim() === "") {
+      alert("category name cannot be empty");
+      input.value = "";
+      return;
+    }
+    pubsub.publish("newCatCreated", input.value.trim().toLowerCase(), form);
+  };
+
+  const _saveCategory = ([catName, form]) => {
+    const catDiv = form.nextElementSibling;
+    console.log(catDiv);
+    const div = document.createElement("div");
+    div.textContent = catName;
+
+    catDiv.appendChild(div);
+    Tasks.addDataToStorage(catName, "categories");
+
+    _renderCategories(catDiv);
+  };
+
+  const _renderCategories = (container) => {
+    const categories = Tasks.getDataFromStorage("categories");
+    // catContainer.innerHTML = "";
+    console.log(categories);
+    categories.forEach((cat) => {
+      const div = document.createElement("div");
+      div.textContent = cat;
+      div.classList.add("nav-item");
+      container.appendChild(div);
+    });
   };
 
   return {
