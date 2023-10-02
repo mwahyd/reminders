@@ -92,7 +92,7 @@ export const DOM = {
     console.log(event.target);
     switch (event.target.id) {
       case "home":
-        pubsub.publish("allClicked", event.target);
+        pubsub.publish("allClicked", event.target, this.content);
         break;
       case "today":
         pubsub.publish("dueTodayClicked", event.target, this.content);
@@ -108,6 +108,15 @@ export const DOM = {
         break;
       case "priority-high":
         pubsub.publish("priorityClicked", event.target, this.content);
+        break;
+      case "category-btn":
+        pubsub.publish("addCatBtnClicked", event.target, this.sidebar);
+        break;
+      case "cat-save-btn":
+        pubsub.publish("catSaveCancelClicked", event.target, this.sidebar);
+        break;
+      case "cat-cancel-btn":
+        pubsub.publish("catSaveCancelClicked", event.target, this.sidebar);
         break;
     }
   },
