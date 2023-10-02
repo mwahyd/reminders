@@ -19,14 +19,25 @@
             <div class="nav-item" id="home">all</div>
             <div class="nav-item" id="today">due today</div>
             <div class="nav-item" id="this-week">due this week</div>
-            <div class="nav-item" id="pending">pending</div>
-            <div class="nav-item" id="completed">completed</div>
-          </div>
-          <h2>Categories</h2>
-          <div class="nav">
             <div class="nav-item" id="priority-low">priority: low</div>
             <div class="nav-item" id="priority-medium">priority: medium</div>
             <div class="nav-item" id="priority-high">priority: high</div>
+            <div class="nav-item" id="completed">completed</div>
+          </div>
+          <h2>Categories</h2>
+          <div class="nav categories">
+            <button class="category btn" id="category-btn">add category</button>
+            <form action="#" id="cat-form" class="hidden">
+              <input
+                type="text"
+                placeholder="category name..."
+                maxlength="20" />
+              <div class="confirmation">
+                <button class="save btn" id="cat-save-btn">save</button>
+                <button class="cancel btn" id="cat-cancel-btn">cancel</button>
+              </div>
+            </form>
+            <div id="projects-container"></div>
           </div>
         </aside>
 
@@ -51,7 +62,7 @@
             </label>
             <label for="date">
               due date:
-              <input type="date" id="datePicker" />
+              <input type="date" id="dueDate" />
             </label>
             <div class="confirmation">
               <button class="save btn" id="save-btn">save</button>
