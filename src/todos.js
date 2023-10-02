@@ -22,11 +22,13 @@ export default (function Tasks() {
     // create date stamp (date of creation)
     const date = new Date();
     // merge all the objects from data into one object
+    console.log(data);
     data = Object.assign({}, ...data);
+    console.log(data);
     data["taskID"] = taskID;
     data["issuedDate"] = date.toLocaleDateString("en-GB");
     // store task in local storage
-    _addDataToStorage(data);
+    addDataToStorage(data, "tasksArray");
     // call task cards render to update DOM
     _createTaskCards(container);
   };
@@ -40,23 +42,23 @@ export default (function Tasks() {
     });
   };
 
-  const _addDataToStorage = (task) => {
-    const dataFromStorage = getDataFromStorage();
+  const addDataToStorage = (task, arrayName) => {
+    const dataFromStorage = getDataFromStorage(arrayName);
     dataFromStorage.push(task);
-    localStorage.setItem("tasksArray", JSON.stringify(dataFromStorage));
+    localStorage.setItem(arrayName, JSON.stringify(dataFromStorage));
   };
 
   const _updateDataInStorage = (array) => {
     localStorage.setItem("tasksArray", JSON.stringify(array));
   };
 
-  const getDataFromStorage = () => {
+  const getDataFromStorage = (arrayName = "tasksArray") => {
     let dataFromStorage;
 
-    if (localStorage.getItem("tasksArray") === null) {
+    if (localStorage.getItem(arrayName) === null) {
       dataFromStorage = [];
     } else {
-      dataFromStorage = JSON.parse(localStorage.getItem("tasksArray"));
+      dataFromStorage = JSON.parse(localStorage.getItem(arrayName));
     }
     return dataFromStorage;
   };
@@ -194,6 +196,7 @@ export default (function Tasks() {
   return {
     render,
     getDataFromStorage,
+    addDataToStorage,
     createTaskElements,
   };
 })();
