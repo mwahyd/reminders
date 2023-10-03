@@ -1,4 +1,5 @@
 import { pubsub } from "./pubsub.js";
+import TodoForm from "./todo-form.js";
 
 export default (function Tasks() {
   // ! should not call document here ......
@@ -118,11 +119,11 @@ export default (function Tasks() {
   };
 
   const _displayForm = (contentDiv) => {
-    const form = contentDiv.children[1];
-    const overlay = contentDiv.children[2];
-    form.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-    console.log(_getFormElements(form));
+    TodoForm.showFormHideButton([
+      contentDiv.children[0],
+      contentDiv.children[1],
+      contentDiv.children[2],
+    ]);
 
     // add edit class to save button
     const saveBtn = form.lastElementChild.firstElementChild;
