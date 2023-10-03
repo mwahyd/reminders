@@ -90,6 +90,10 @@ export const DOM = {
 
   onSideBarClicked: function (event) {
     console.log(event.target);
+    if (event.target.classList.contains("dynamic")) {
+      pubsub.publish("categoryClicked", event.target, this.content);
+    }
+
     switch (event.target.id) {
       case "home":
         pubsub.publish("allClicked", event.target, this.content);
