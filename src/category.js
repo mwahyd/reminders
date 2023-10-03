@@ -28,9 +28,7 @@ export default (function Category() {
   };
 
   const _displayAllTasks = ([allButton, contentDiv]) => {
-    console.log(allButton);
-    // display all the tasks from other categories as well
-    document.location.reload();
+    Tasks.createTaskCards(contentDiv);
   };
 
   const _dueToday = ([dueToday, contentDiv]) => {
@@ -90,17 +88,8 @@ export default (function Category() {
     const catName = category.getAttribute("data-name");
     taskContainer.className = "";
     taskContainer.classList.add(catName.replace(/\s/g, ""));
-    console.log(category);
-    console.log(contentDiv);
-    console.log(taskContainer);
     taskContainer.innerHTML = "";
     const arrayList = Tasks.getDataFromStorage();
-    console.log(catName);
-    // arrayList.forEach((obj) => {
-    //   if (obj["category"] === catName) {
-    //     console.log(obj);
-    //   }
-    // });
     const filtered = arrayList.filter((obj) => obj["category"] === catName);
     _renderTasks(filtered, contentDiv);
     // console.log(arrayList);
