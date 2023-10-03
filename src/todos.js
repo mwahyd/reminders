@@ -10,38 +10,37 @@ export default (function Tasks() {
     pubsub.subscribe("taskCardBtnClicked", _taskCardBtnClicked);
 
     // display task cards if stored in local storage
-    _createTaskCards(contentContainer);
+    createTaskCards(contentContainer);
   };
 
   const _saveTask = ([data, container]) => {
-    let taskID;
+    const className = container.lastElementChild.classList[0];
     const tasksArray = getDataFromStorage();
+    let taskID;
     tasksArray.length === 0
       ? (taskID = tasksArray.length + 1)
       : (taskID = tasksArray.at(-1)["taskID"] + 1);
     // create date stamp (date of creation)
     const date = new Date();
+
     // merge all the objects from data into one object
-    console.log(data);
     data = Object.assign({}, ...data);
-    console.log(data);
+
     data["taskID"] = taskID;
     data["issuedDate"] = date.toLocaleDateString("en-GB");
-    // store task in local storage
-    console.log(container.lastElementChild);
-    console.log(container.lastElementChild.classList.length > 0);
-    const taskContainer = container.lastElementChild;
-    const className = taskContainer.classList[0];
-    taskContainer.classList.length > 0
-      ? addDataToStorage(data, className)
-      : addDataToStorage(data, "tasksArray");
-    // addDataToStorage(data, "tasksArray");
-    // call task cards render to update DOM
-    _createTaskCards(container);
+    // if #tasks-container contains a class (when category clicked)
+    if (className !== undefined) {
+      data["category"] = className;
+    }
+    addDataToStorage(data, "tasksArray");
+    createTaskCards(container, "tasksArray", className);
   };
 
-  const _createTaskCards = (contentDiv) => {
-    const tasks = getDataFromStorage();
+  const createTaskCards = (contentDiv, arrayName, className = null) => {
+    let tasks = getDataFromStorage(arrayName);
+    if (className) {
+      tasks = tasks.filter((obj) => obj["category"] === className);
+    }
     contentDiv.lastElementChild.innerHTML = "";
     tasks.forEach((task) => {
       const elements = createTaskElements(task);
@@ -80,7 +79,7 @@ export default (function Tasks() {
   const _delBtnClicked = (btn, contentDiv) => {
     if (!confirm("Are you sure you want to remove this item?")) return;
     _removeItemFromArray(btn);
-    _createTaskCards(contentDiv);
+    createTaskCards(contentDiv);
   };
 
   const _removeItemFromArray = (btn) => {
@@ -205,6 +204,7 @@ export default (function Tasks() {
     render,
     getDataFromStorage,
     addDataToStorage,
+    createTaskCards,
     createTaskElements,
   };
 })();
