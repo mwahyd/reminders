@@ -14,6 +14,7 @@ export default (function Category() {
     pubsub.subscribe("addCatBtnClicked", _showFormHideBtn);
     pubsub.subscribe("catSaveCancelClicked", _showBtnHideForm);
     pubsub.subscribe("newCatCreated", _saveCategory);
+    pubsub.subscribe("categoryClicked", _displayCategoryHandler);
 
     _renderCategories(catContainer);
   };
@@ -84,6 +85,27 @@ export default (function Category() {
     form.firstElementChild.value = "";
   };
 
+  const _displayCategoryHandler = ([category, contentDiv]) => {
+    const taskContainer = contentDiv.lastElementChild;
+    const catName = category.getAttribute("data-name");
+    taskContainer.className = "";
+    taskContainer.classList.add(catName.replace(/\s/g, ""));
+    console.log(category);
+    console.log(contentDiv);
+    console.log(taskContainer);
+    taskContainer.innerHTML = "";
+    const arrayList = Tasks.getDataFromStorage();
+    console.log(catName);
+    // arrayList.forEach((obj) => {
+    //   if (obj["category"] === catName) {
+    //     console.log(obj);
+    //   }
+    // });
+    const filtered = arrayList.filter((obj) => obj["category"] === catName);
+    _renderTasks(filtered, contentDiv);
+    // console.log(arrayList);
+  };
+
   // support functions
   const _convertDate = (date) => {
     return new Date(date).toLocaleDateString("en-GB");
@@ -116,7 +138,8 @@ export default (function Category() {
       const del = document.createElement("span");
       div.textContent = cat;
       del.textContent = "\u2716";
-      div.classList.add("nav-item");
+      div.setAttribute("data-name", cat.replace(/\s/g, ""));
+      div.classList.add("nav-item", "dynamic");
       div.appendChild(del);
       container.appendChild(div);
     });
