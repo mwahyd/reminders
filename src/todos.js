@@ -164,7 +164,8 @@ export default (function Tasks() {
     });
     console.dir({ taskArray });
     _updateDataInStorage(taskArray);
-    setTimeout(() => location.reload(), 100);
+    contentDiv.children[1].classList.add("hidden");
+    location.reload();
   };
 
   const _getFormElements = (form) => {
