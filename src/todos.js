@@ -28,7 +28,14 @@ export default (function Tasks() {
     data["taskID"] = taskID;
     data["issuedDate"] = date.toLocaleDateString("en-GB");
     // store task in local storage
-    addDataToStorage(data, "tasksArray");
+    console.log(container.lastElementChild);
+    console.log(container.lastElementChild.classList.length > 0);
+    const taskContainer = container.lastElementChild;
+    const className = taskContainer.classList[0];
+    taskContainer.classList.length > 0
+      ? addDataToStorage(data, className)
+      : addDataToStorage(data, "tasksArray");
+    // addDataToStorage(data, "tasksArray");
     // call task cards render to update DOM
     _createTaskCards(container);
   };
