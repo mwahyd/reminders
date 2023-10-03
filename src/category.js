@@ -109,7 +109,7 @@ export default (function Category() {
 
   const _renderCategories = (container) => {
     const categories = Tasks.getDataFromStorage("categories");
-    // catContainer.innerHTML = "";
+    catContainer.innerHTML = "";
     console.log(categories);
     categories.forEach((cat) => {
       const div = document.createElement("div");
