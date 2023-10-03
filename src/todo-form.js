@@ -4,12 +4,12 @@ import { pubsub } from "./pubsub.js";
 export default (function TodoForm() {
   const render = function () {
     // ask pubsub controller to notify when following events occur
-    pubsub.subscribe("addTaskClicked", _showFormHideButton);
+    pubsub.subscribe("addTaskClicked", showFormHideButton);
     pubsub.subscribe("formCancelBtnClicked", _showBtnHideForm);
     pubsub.subscribe("formSaveBtnClicked", _processForm);
   };
 
-  const _showFormHideButton = function ([addBtn, form, overlay]) {
+  const showFormHideButton = function ([addBtn, form, overlay]) {
     addBtn.classList.add("hidden");
     form.classList.remove("hidden");
     overlay.classList.remove("hidden");
@@ -76,5 +76,6 @@ export default (function TodoForm() {
 
   return {
     render,
+    showFormHideButton,
   };
 })();
