@@ -102,11 +102,6 @@ export default (function Category() {
 
   const _saveCategory = ([catName, form]) => {
     const catDiv = form.nextElementSibling;
-    console.log(catDiv);
-    const div = document.createElement("div");
-    div.textContent = catName;
-
-    catDiv.appendChild(div);
     Tasks.addDataToStorage(catName, "categories");
 
     _renderCategories(catDiv);
@@ -118,8 +113,11 @@ export default (function Category() {
     console.log(categories);
     categories.forEach((cat) => {
       const div = document.createElement("div");
+      const del = document.createElement("span");
       div.textContent = cat;
+      del.textContent = "\u2716";
       div.classList.add("nav-item");
+      div.appendChild(del);
       container.appendChild(div);
     });
   };
