@@ -43,8 +43,9 @@ export default (function Tasks() {
   };
 
   const addDataToStorage = (task, arrayName) => {
-    const dataFromStorage = getDataFromStorage(arrayName);
+    let dataFromStorage = getDataFromStorage(arrayName);
     dataFromStorage.push(task);
+    dataFromStorage = Array.from(new Set(dataFromStorage));
     localStorage.setItem(arrayName, JSON.stringify(dataFromStorage));
   };
 
