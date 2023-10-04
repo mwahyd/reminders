@@ -80,7 +80,8 @@ export default (function Tasks() {
   const _delBtnClicked = (btn, contentDiv) => {
     if (!confirm("Are you sure you want to remove this item?")) return;
     _removeItemFromArray(btn);
-    createTaskCards(contentDiv);
+    const className = contentDiv.lastElementChild.classList[0];
+    createTaskCards(contentDiv, "tasksArray", className);
   };
 
   const _removeItemFromArray = (btn) => {
