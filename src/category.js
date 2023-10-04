@@ -28,6 +28,7 @@ export default (function Category() {
   };
 
   const _displayAllTasks = ([allButton, contentDiv]) => {
+    _resetClassName(contentDiv);
     Tasks.createTaskCards(contentDiv);
   };
 
@@ -86,7 +87,7 @@ export default (function Category() {
   const _displayCategoryHandler = ([category, contentDiv]) => {
     const taskContainer = contentDiv.lastElementChild;
     const catName = category.getAttribute("data-name");
-    taskContainer.className = "";
+    _resetClassName(contentDiv);
     taskContainer.classList.add(catName.replace(/\s/g, ""));
     taskContainer.innerHTML = "";
     const arrayList = Tasks.getDataFromStorage();
@@ -132,6 +133,11 @@ export default (function Category() {
       div.appendChild(del);
       container.appendChild(div);
     });
+  };
+
+  const _resetClassName = (contentDiv) => {
+    const taskContainer = contentDiv.lastElementChild;
+    taskContainer.className = "";
   };
 
   return {
