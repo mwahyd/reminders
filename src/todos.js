@@ -186,10 +186,10 @@ export default (function Tasks() {
     container.innerHTML = `
       <div class="task-header flex-sb">
         <p>&#9776; <span>${obj["taskID"]}</span></p>
-        <p>&#128337; <span>${is}</span>
+        <p id="task-priority><span id="priority">&#x24D8;</span> <span>${obj["priority"]}</span></p>
+        <p><span id="issuedD">&#128337;</span> <span>${is}</span>
       </div>
 
-      <div id="task-priority"><p><span id="priority">&#x24D8;</span> <span>${obj["priority"]}</span></p></div>
       <div id="task-title"><p>title: <span class="bold">${obj["title"]}</span></p></div>
       <div id="task-description"><p>description: <span>${obj["description"]}</span></p></div>
       <div id="task-due" class="flex-sb">
