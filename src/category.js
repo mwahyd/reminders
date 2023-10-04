@@ -91,16 +91,14 @@ export default (function Category() {
     form.firstElementChild.value = "";
   };
 
-  const _displayCategoryHandler = ([category, contentDiv]) => {
-    const taskContainer = contentDiv.lastElementChild;
-    const catName = category.getAttribute("data-name");
-    _resetClassName(contentDiv);
-    taskContainer.classList.add(catName.replace(/\s/g, ""));
-    taskContainer.innerHTML = "";
+  const _displayCategoryHandler = ([category, contentDiv, catContainer]) => {
+    _handleCategoryDiv(catContainer, category);
+    _handleTaskContainer(contentDiv, category);
     const arrayList = Tasks.getDataFromStorage();
-    const filtered = arrayList.filter((obj) => obj["category"] === catName);
+    const filtered = arrayList.filter(
+      (obj) => obj["category"] === category.getAttribute("data-name")
+    );
     _renderTasks(filtered, contentDiv);
-    // console.log(arrayList);
   };
 
   // support functions
@@ -132,19 +130,33 @@ export default (function Category() {
     console.log(categories);
     categories.forEach((cat) => {
       const div = document.createElement("div");
+      const p = document.createElement("p");
       const del = document.createElement("span");
-      div.textContent = cat;
+      p.textContent = cat;
       del.textContent = "\u2716";
+      del.classList.add("del-btn");
       div.setAttribute("data-name", cat.replace(/\s/g, ""));
       div.classList.add("nav-item", "dynamic");
-      div.appendChild(del);
+      div.append(p, del);
       container.appendChild(div);
     });
   };
 
-  const _resetClassName = (contentDiv) => {
+  const _handleTaskContainer = (contentDiv, category) => {
     const taskContainer = contentDiv.lastElementChild;
+    const catName = category.getAttribute("data-name");
     taskContainer.className = "";
+    taskContainer.classList.add(catName.replace(/\s/g, ""));
+    taskContainer.innerHTML = "";
+  };
+
+  const _handleCategoryDiv = (catContainer, category) => {
+    Array.from(catContainer.children).forEach((item) => {
+      if (item.classList.contains("selected")) {
+        item.classList.remove("selected");
+      }
+    });
+    category.classList.add("selected");
   };
 
   return {
