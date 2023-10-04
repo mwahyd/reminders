@@ -10,11 +10,12 @@ export default (function Category() {
     // listen to each category event and fire associated func
     pubsub.subscribe("priorityClicked", _displayPriorityHandler);
     pubsub.subscribe("allClicked", _displayAllTasks);
-    pubsub.subscribe("dueTodayClicked", _dueToday);
+    pubsub.subscribe("dueTodayClicked", _displayDueToday);
     pubsub.subscribe("addCatBtnClicked", _showFormHideBtn);
     pubsub.subscribe("catSaveCancelClicked", _showBtnHideForm);
     pubsub.subscribe("newCatCreated", _saveCategory);
     pubsub.subscribe("categoryClicked", _displayCategoryHandler);
+    pubsub.subscribe("dueThisWeekClicked", _displayDueThisWeek);
 
     _renderCategories(catContainer);
   };
@@ -32,13 +33,19 @@ export default (function Category() {
     Tasks.createTaskCards(contentDiv);
   };
 
-  const _dueToday = ([dueToday, contentDiv]) => {
+  const _displayDueToday = ([dueToday, contentDiv]) => {
     const today = new Date().toLocaleDateString("en-GB");
-    const allTasks = Tasks.getDataFromStorage();
-    const dueTasks = allTasks.filter(
-      (obj) => _convertDate(obj["dueDate"]) === today
-    );
-    _renderTasks(dueTasks, contentDiv);
+    const tasks = Tasks.getDataFromStorage();
+    const dueT = tasks.filter((obj) => _convertDate(obj["dueDate"]) === today);
+    _renderTasks(dueT, contentDiv);
+  };
+
+  const _displayDueThisWeek = ([dueToday, contentDiv]) => {
+    const today = new Date().toLocaleDateString("en-GB");
+    const tasks = Tasks.getDataFromStorage();
+    const currentWeek = Tasks.getWeek(_convertDate(today));
+    const dueThisWeek = tasks.filter((obj) => obj["week"] === currentWeek);
+    _renderTasks(dueThisWeek, contentDiv);
   };
 
   const _displayPriorityHandler = ([priority, contentDiv]) => {
