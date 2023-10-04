@@ -21,14 +21,12 @@ export default (function Tasks() {
     tasksArray.length === 0
       ? (taskID = tasksArray.length + 1)
       : (taskID = tasksArray.at(-1)["taskID"] + 1);
-    // create date stamp (date of creation)
-    const date = new Date();
-
     // merge all the objects from data into one object
     data = Object.assign({}, ...data);
 
+    // create date stamp (date of creation)
+    data["issuedDate"] = new Date().toLocaleDateString("fr-CA");
     data["taskID"] = taskID;
-    data["issuedDate"] = date.toLocaleDateString("en-GB");
     data["week"] = getWeek(data["dueDate"]);
     // if #tasks-container contains a class (when category clicked)
     if (className !== undefined) {
@@ -179,21 +177,23 @@ export default (function Tasks() {
   };
 
   const createTaskElements = (obj) => {
-    const due = new Date(obj["dueDate"]).toLocaleDateString("en-GB");
+    const options = { day: "2-digit", month: "short", year: "2-digit" };
+    const due = new Date(obj["dueDate"]).toLocaleDateString("en-GB", options);
+    const is = new Date(obj["issuedDate"]).toLocaleDateString("en-GB", options);
     const container = document.createElement("div");
     container.setAttribute("data-index", obj["taskID"]);
     container.classList.add("red-border"); //                            ! delete later
     container.innerHTML = `
       <div class="task-header flex-sb">
-        <p>taskID: <span>${obj["taskID"]}</span></p>
-        <p>issued: <span>${obj["issuedDate"]}</span>
+        <p>&#9776; <span>${obj["taskID"]}</span></p>
+        <p>&#128337; <span>${is}</span>
       </div>
 
-      <div id="task-priority"><p>priority: <span>${obj["priority"]}</span></p></div>
+      <div id="task-priority"><p><span id="priority">&#x24D8;</span> <span>${obj["priority"]}</span></p></div>
       <div id="task-title"><p>title: <span class="bold">${obj["title"]}</span></p></div>
       <div id="task-description"><p>description: <span>${obj["description"]}</span></p></div>
       <div id="task-due" class="flex-sb">
-        <p>due: <span>${due}</span></p>
+        <p><span id="dueD">&#128197;</span> <span>${due}</span></p>
         <div class="options">
           <button class="option edit btn" id="edit-btn">&#x1F589;</button>
           <button class="option delete btn" id="delete-btn">&#128465;</button>
