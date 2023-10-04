@@ -29,10 +29,12 @@ export default (function Tasks() {
 
     data["taskID"] = taskID;
     data["issuedDate"] = date.toLocaleDateString("en-GB");
+    data["week"] = getWeek(data["dueDate"]);
     // if #tasks-container contains a class (when category clicked)
     if (className !== undefined) {
       data["category"] = className;
     }
+    console.log(data);
     addDataToStorage(data, "tasksArray");
     createTaskCards(container, "tasksArray", className);
   };
@@ -103,11 +105,9 @@ export default (function Tasks() {
     _populateForm(form, taskToEdit);
 
     // subscribe to save button clicked for update
-
     pubsub.subscribe("taskFromEdited", (data) => {
       const updatedData = _updatedData(data, taskToEdit);
       _updateExistingData(updatedData, contentDiv);
-      contentDiv.children[1].classList.add("hidden");
       location.reload();
     });
   };
@@ -203,11 +203,23 @@ export default (function Tasks() {
     return container;
   };
 
+  const getWeek = (dueDate) => {
+    const currentDate = new Date(dueDate);
+    // start date = 1st Jan currentYear
+    const startDate = new Date(currentDate.getFullYear(), 0, 1);
+    // This returns the difference between dates in milliseconds.
+    // divide by total milliseconds === difference between days
+    const days = Math.floor((currentDate - startDate) / (24 * 60 * 60 * 1000));
+    const weekNumber = Math.ceil(days / 7);
+    return weekNumber;
+  };
+
   return {
     render,
     getDataFromStorage,
     addDataToStorage,
     createTaskCards,
     createTaskElements,
+    getWeek,
   };
 })();
