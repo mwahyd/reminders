@@ -16,6 +16,7 @@ export default (function Category() {
     pubsub.subscribe("newCatCreated", _saveCategory);
     pubsub.subscribe("categoryClicked", _displayCategoryHandler);
     pubsub.subscribe("dueThisWeekClicked", _displayDueThisWeek);
+    pubsub.subscribe("catDelBtnClicked", _deleteCatWithTasks);
 
     _renderCategories(catContainer);
   };
@@ -29,7 +30,8 @@ export default (function Category() {
   };
 
   const _displayAllTasks = ([allButton, contentDiv]) => {
-    _resetClassName(contentDiv);
+    const taskContainer = contentDiv.lastElementChild;
+    taskContainer.className = "";
     Tasks.createTaskCards(contentDiv);
   };
 
@@ -99,6 +101,18 @@ export default (function Category() {
       (obj) => obj["category"] === category.getAttribute("data-name")
     );
     _renderTasks(filtered, contentDiv);
+  };
+
+  const _deleteCatWithTasks = ([event]) => {
+    if (!confirm("Are you sure you want to delete this category?")) return;
+    const catName = event.parentElement.getAttribute("data-name");
+    const tasks = Tasks.getDataFromStorage();
+    const categories = Tasks.getDataFromStorage("categories");
+    const filtered = tasks.filter((obj) => obj["category"] !== catName);
+    categories.splice(categories.indexOf(catName), 1);
+    Tasks.updateDataInStorage(categories, "categories");
+    Tasks.updateDataInStorage(filtered);
+    location.reload();
   };
 
   // support functions
