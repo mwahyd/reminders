@@ -106,6 +106,8 @@ export default (function Tasks() {
     pubsub.subscribe("taskFromEdited", (data) => {
       const updatedData = _updatedData(data, taskToEdit);
       _updateExistingData(updatedData, contentDiv);
+      contentDiv.children[1].classList.add("hidden");
+      location.reload();
     });
   };
 
@@ -164,8 +166,6 @@ export default (function Tasks() {
     });
     console.dir({ taskArray });
     _updateDataInStorage(taskArray);
-    contentDiv.children[1].classList.add("hidden");
-    location.reload();
   };
 
   const _getFormElements = (form) => {
