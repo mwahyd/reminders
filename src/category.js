@@ -121,11 +121,13 @@ export default (function Category() {
       checkBox.checked = false;
       return;
     }
+    const task = checkBox.parentElement.parentElement;
+    task.classList.add("striked");
     const taskArray = Tasks.getTaskToEdit(checkBox);
-    checkBox.disabled = true;
+    // checkBox.disabled = true;
     // create new local storage for completed
     Tasks.addDataToStorage(taskArray[0], "completed");
-    Tasks.removeItemFromArray(checkBox);
+    // Tasks.removeItemFromArray(checkBox);
   };
 
   // * support functions
