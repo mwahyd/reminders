@@ -17,6 +17,7 @@ export default (function Category() {
     pubsub.subscribe("categoryClicked", _displayCategoryHandler);
     pubsub.subscribe("dueThisWeekClicked", _displayDueThisWeek);
     pubsub.subscribe("catDelBtnClicked", _deleteCatWithTasks);
+    pubsub.subscribe("checkBoxClicked", _handleCheckBoxClicked);
 
     _renderCategories(catContainer);
   };
@@ -115,7 +116,19 @@ export default (function Category() {
     location.reload();
   };
 
-  // support functions
+  const _handleCheckBoxClicked = ([checkBox, contentDiv]) => {
+    if (!confirm("Do you want to mark this task complete?")) {
+      checkBox.checked = false;
+      return;
+    }
+    const taskArray = Tasks.getTaskToEdit(checkBox);
+    checkBox.disabled = true;
+    // create new local storage for completed
+    Tasks.addDataToStorage(taskArray[0], "completed");
+    Tasks.removeItemFromArray(checkBox);
+  };
+
+  // * support functions
   const _convertDate = (date) => {
     return new Date(date).toLocaleDateString("en-GB");
   };
