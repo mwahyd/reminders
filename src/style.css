@@ -48,6 +48,24 @@ body {
   z-index: 2;
 }
 
+.nav-item {
+  border: 2px solid orange;
+}
+
+.del-btn {
+  display: none;
+  cursor: pointer;
+}
+
+.dynamic {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dynamic:hover {
+  border: 2px solid blue;
+}
+
 /* action classes */
 
 .hidden {
@@ -75,4 +93,22 @@ body {
 
 .red-border {
   border: 2px solid red;
+}
+
+.selected {
+  border: 2px solid green;
+
+  .del-btn {
+    display: inline-block;
+  }
+}
+
+.striked {
+  #task-title,
+  #task-description,
+  #task-due > p:first-of-type {
+    text-decoration: line-through;
+    text-decoration-thickness: 1.8px;
+    text-decoration-color: #b5b5b5;
+  }
 }
