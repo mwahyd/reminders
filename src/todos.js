@@ -56,8 +56,8 @@ export default (function Tasks() {
     localStorage.setItem(arrayName, JSON.stringify(dataFromStorage));
   };
 
-  const _updateDataInStorage = (array) => {
-    localStorage.setItem("tasksArray", JSON.stringify(array));
+  const updateDataInStorage = (array, storageName = "tasksArray") => {
+    localStorage.setItem(storageName, JSON.stringify(array));
   };
 
   const getDataFromStorage = (arrayName = "tasksArray") => {
@@ -91,13 +91,13 @@ export default (function Tasks() {
     );
     // remove the item based on the taskID by filtering it
     const updatedArray = taskArray.filter((obj) => obj["taskID"] !== taskID);
-    _updateDataInStorage(updatedArray);
+    updateDataInStorage(updatedArray);
   };
 
   const _editBtnClicked = (btn, contentDiv) => {
     console.log(btn.parentElement.parentElement.parentElement, contentDiv);
     // when edit button is clicked, fill the form with task data
-    const [taskToEdit] = _getTaskToEdit(btn);
+    const [taskToEdit] = getTaskToEdit(btn);
     console.log(taskToEdit);
     _displayForm(contentDiv);
     _populateForm(form, taskToEdit);
@@ -110,11 +110,20 @@ export default (function Tasks() {
     });
   };
 
-  const _getTaskToEdit = (btn) => {
+  const getTaskToEdit = (element) => {
     const taskArray = getDataFromStorage();
-    const taskID = Number(
-      btn.parentElement.parentElement.parentElement.getAttribute("data-index")
-    );
+    let taskID;
+    if (element.nodeName === "BUTTON") {
+      taskID = Number(
+        element.parentElement.parentElement.parentElement.getAttribute(
+          "data-index"
+        )
+      );
+    } else if (element.nodeName === "INPUT") {
+      taskID = Number(
+        element.parentElement.parentElement.getAttribute("data-index")
+      );
+    }
     const taskToEdit = taskArray.filter((obj) => obj["taskID"] === taskID);
     return taskToEdit;
   };
@@ -164,7 +173,7 @@ export default (function Tasks() {
       }
     });
     console.dir({ taskArray });
-    _updateDataInStorage(taskArray);
+    updateDataInStorage(taskArray);
   };
 
   const _getFormElements = (form) => {
@@ -185,15 +194,16 @@ export default (function Tasks() {
     container.classList.add("red-border"); //                            ! delete later
     container.innerHTML = `
       <div class="task-header flex-sb">
-        <p>&#9776; <span>${obj["taskID"]}</span></p>
-        <p id="task-priority><span id="priority">&#x24D8;</span> <span>${obj["priority"]}</span></p>
+        <p><span id="taskID">&#10747;</span> <span>${obj["taskID"]}</span></p>
+        <p><span id="taskID">&#x24D8;</span> <span>${obj["priority"]}</span></p>
         <p><span id="issuedD">&#128337;</span> <span>${is}</span>
       </div>
 
+      <label for="checkbox">checkbox: <input type="checkbox" id="checkbox" title="task completed?"  /></label>
       <div id="task-title"><p>title: <span class="bold">${obj["title"]}</span></p></div>
       <div id="task-description"><p>description: <span>${obj["description"]}</span></p></div>
       <div id="task-due" class="flex-sb">
-        <p><span id="dueD">&#128197;</span> <span>${due}</span></p>
+        <p><span id="dueD">&#128198;</span> <span>${due}</span></p>
         <div class="options">
           <button class="option edit btn" id="edit-btn">&#x1F589;</button>
           <button class="option delete btn" id="delete-btn">&#128465;</button>
@@ -218,6 +228,8 @@ export default (function Tasks() {
     render,
     getDataFromStorage,
     addDataToStorage,
+    updateDataInStorage,
+    getTaskToEdit,
     createTaskCards,
     createTaskElements,
     getWeek,
