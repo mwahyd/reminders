@@ -28,6 +28,11 @@ export const DOM = {
       }
     });
 
+    this.content.lastElementChild.addEventListener(
+      "click",
+      this.onCheckBoxClicked.bind(this)
+    );
+
     this.sidebar.addEventListener("click", this.onSideBarClicked.bind(this));
 
     this.addTaskBtn.addEventListener("click", this.onAddBtnClicked.bind(this));
@@ -91,7 +96,14 @@ export const DOM = {
   onSideBarClicked: function (event) {
     console.log(event.target);
     if (event.target.classList.contains("dynamic")) {
-      pubsub.publish("categoryClicked", event.target, this.content);
+      pubsub.publish(
+        "categoryClicked",
+        event.target,
+        this.content,
+        this.sidebar.lastElementChild.lastElementChild
+      );
+    } else if (event.target.classList.contains("del-btn")) {
+      pubsub.publish("catDelBtnClicked", event.target);
     }
 
     switch (event.target.id) {
@@ -123,6 +135,13 @@ export const DOM = {
         pubsub.publish("catSaveCancelClicked", event, this.sidebar);
         break;
     }
+  },
+
+  onCheckBoxClicked: function (event) {
+    if (event.target.id !== "checkbox") {
+      return;
+    }
+    pubsub.publish("checkBoxClicked", event.target, this.content);
   },
 
   // support functions
