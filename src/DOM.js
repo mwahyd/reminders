@@ -9,8 +9,6 @@ export const DOM = {
 
   cacheDOM: function () {
     this.docu = document.querySelector("body");
-    // this.header = this.docu.querySelector("header");
-    // this.mainContainer = this.docu.querySelector(".container");
     this.content = this.docu.querySelector("#content");
     this.sidebar = this.docu.querySelector("#sidebar");
     this.form = this.docu.querySelector("#form");
@@ -51,17 +49,13 @@ export const DOM = {
   // handler functions
   onAddBtnClicked: function (event) {
     event.preventDefault();
-    // announce the button is clicked to subscribers
     pubsub.publish("addTaskClicked", event.target, this.form, this.overlay);
-    console.log("add button clicked");
   },
 
   onFormBtnClicked: function (event) {
     event.preventDefault();
-    console.log(event.target);
     switch (event.target.id) {
       case "save-btn":
-        // announce the save button clicked to subscribers
         pubsub.publish(
           "formSaveBtnClicked",
           this.addTaskBtn,
@@ -92,8 +86,7 @@ export const DOM = {
   },
 
   onSideBarClicked: function (event) {
-    pubsub.publish("navClicked", this.addTaskBtn, this.content);
-    console.log(event.target);
+    pubsub.publish("navClicked", this.addTaskBtn, this.content, this.sidebar);
     if (event.target.classList.contains("dynamic")) {
       pubsub.publish(
         "categoryClicked",
