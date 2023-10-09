@@ -8,16 +8,18 @@ export default (function Category() {
 
   const render = () => {
     // listen to each category event and fire associated func
-    pubsub.subscribe("priorityClicked", _displayPriorityHandler);
     pubsub.subscribe("allClicked", _displayAllTasks);
     pubsub.subscribe("dueTodayClicked", _displayDueToday);
+    pubsub.subscribe("dueThisWeekClicked", _displayDueThisWeek);
+    pubsub.subscribe("priorityClicked", _displayPriorityHandler);
+    pubsub.subscribe("categoryClicked", _displayCategoryHandler);
+    pubsub.subscribe("completedClicked", _handleCompleted);
+    pubsub.subscribe("checkBoxClicked", _handleCheckBoxClicked);
+    pubsub.subscribe("navClicked", _handleNavClick);
     pubsub.subscribe("addCatBtnClicked", _showFormHideBtn);
     pubsub.subscribe("catSaveCancelClicked", _showBtnHideForm);
     pubsub.subscribe("newCatCreated", _saveCategory);
-    pubsub.subscribe("categoryClicked", _displayCategoryHandler);
-    pubsub.subscribe("dueThisWeekClicked", _displayDueThisWeek);
     pubsub.subscribe("catDelBtnClicked", _deleteCatWithTasks);
-    pubsub.subscribe("checkBoxClicked", _handleCheckBoxClicked);
 
     _renderCategories(catContainer);
   };
@@ -122,12 +124,39 @@ export default (function Category() {
       return;
     }
     const task = checkBox.parentElement.parentElement;
+    console.log(task);
     task.classList.add("striked");
     const taskArray = Tasks.getTaskToEdit(checkBox);
-    // checkBox.disabled = true;
+    checkBox.disabled = true;
     // create new local storage for completed
     Tasks.addDataToStorage(taskArray[0], "completed");
-    // Tasks.removeItemFromArray(checkBox);
+    Tasks.removeItemFromArray(checkBox);
+  };
+
+  const _handleCompleted = ([completedNav, contentDiv, addTaskBtn]) => {
+    const array = Tasks.getDataFromStorage("completed");
+    const clearAllBtn = _clearAllBtn();
+    addTaskBtn.classList.add("hidden");
+    if (contentDiv.children[0].id !== "clear-btn") {
+      contentDiv.insertBefore(clearAllBtn, addTaskBtn);
+    }
+    _renderTasks(array, contentDiv);
+    const list = contentDiv.lastElementChild.querySelectorAll("[data-index]");
+    list.forEach((task) => {
+      const options = task.lastElementChild.lastElementChild;
+      const checkbox = task.children[1];
+      task.classList.add("striked");
+      options.classList.add("hidden");
+      task.removeChild(checkbox);
+    });
+  };
+
+  const _handleNavClick = ([addBtn, contentDiv]) => {
+    addBtn.classList.remove("hidden");
+    if (contentDiv.children[0].id === "clear-btn") {
+      contentDiv.removeChild(contentDiv.children[0]);
+    }
+    console.log(contentDiv);
   };
 
   // * support functions
@@ -186,6 +215,14 @@ export default (function Category() {
       }
     });
     category.classList.add("selected");
+  };
+
+  const _clearAllBtn = () => {
+    const button = document.createElement("button");
+    button.classList.add("clear", "btn");
+    button.id = "clear-btn";
+    button.textContent = "clear all";
+    return button;
   };
 
   return {
