@@ -24,18 +24,17 @@ html {
 body {
   font-size: 1.8rem;
   height: 100vh;
+  background-color: #1f141c;
+  color: #f3ecf1;
 }
 
 /* grids */
 
 .parent-grid {
   height: 100%;
-  width: 80%;
-  margin: 0 auto;
-  border: 2px solid red;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px 1fr 50px;
+  grid-template-rows: 1fr 20fr 1fr;
 }
 
 .main-grid {
@@ -51,6 +50,11 @@ body {
 }
 
 /* header */
+
+header {
+  padding: 20px 10px;
+  background-color: #c3ccad;
+}
 
 /* .container { */
 /* border: 2px solid red; */
