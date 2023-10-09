@@ -32,7 +32,6 @@ export default (function Tasks() {
     if (className !== undefined) {
       data["category"] = className;
     }
-    console.log(data);
     addDataToStorage(data, "tasksArray");
     createTaskCards(container, "tasksArray", className);
   };
@@ -86,9 +85,6 @@ export default (function Tasks() {
 
   const removeItemFromArray = (element) => {
     const taskArray = getDataFromStorage();
-    // const taskID = Number(
-    //   btn.parentElement.parentElement.parentElement.getAttribute("data-index")
-    // );
     let taskID;
     if (element.nodeName === "BUTTON") {
       taskID = Number(
@@ -107,10 +103,8 @@ export default (function Tasks() {
   };
 
   const _editBtnClicked = (btn, contentDiv) => {
-    console.log(btn.parentElement.parentElement.parentElement, contentDiv);
     // when edit button is clicked, fill the form with task data
     const [taskToEdit] = getTaskToEdit(btn);
-    console.log(taskToEdit);
     _displayForm(contentDiv);
     _populateForm(form, taskToEdit);
 
@@ -176,15 +170,11 @@ export default (function Tasks() {
 
   const _updateExistingData = (updatedTask, contentDiv) => {
     const taskArray = getDataFromStorage();
-    console.log(updatedTask);
-    console.log(taskArray);
     taskArray.forEach((task, index) => {
       if (task["taskID"] === updatedTask["taskID"]) {
         taskArray[index] = updatedTask;
-        // return;
       }
     });
-    console.dir({ taskArray });
     updateDataInStorage(taskArray);
   };
 
@@ -203,7 +193,6 @@ export default (function Tasks() {
     const is = new Date(obj["issuedDate"]).toLocaleDateString("en-GB", options);
     const container = document.createElement("div");
     container.setAttribute("data-index", obj["taskID"]);
-    container.classList.add("red-border"); //                            ! delete later
     container.innerHTML = `
       <div class="task-header flex-sb">
         <p><span id="taskID">&#10747;</span> <span>${obj["taskID"]}</span></p>
