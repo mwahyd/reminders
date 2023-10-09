@@ -46,7 +46,6 @@ export default (function TodoForm() {
     data.push({ title: input.value.toLowerCase() });
     data.push({ description: description.value.toLowerCase().trim() });
     data.push({ priority: priority.value.toLowerCase() });
-    // data.push({ dueDate: new Date(dueDate.value).toLocaleDateString("en-GB") });
     data.push({ dueDate: dueDate.value });
 
     input.value = "";
@@ -54,9 +53,7 @@ export default (function TodoForm() {
     DOM.updateDatePicker();
 
     _addAddRemoveHidden(addBtn, form, overlay);
-
     pubsub.publish("newTaskCreated", data, form.parentElement);
-    // return data;
   };
 
   const _addAddRemoveHidden = (addBtn, form, overlay) => {
