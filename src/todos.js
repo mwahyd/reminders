@@ -79,16 +79,28 @@ export default (function Tasks() {
 
   const _delBtnClicked = (btn, contentDiv) => {
     if (!confirm("Are you sure you want to remove this item?")) return;
-    _removeItemFromArray(btn);
+    removeItemFromArray(btn);
     const className = contentDiv.lastElementChild.classList[0];
     createTaskCards(contentDiv, "tasksArray", className);
   };
 
-  const _removeItemFromArray = (btn) => {
+  const removeItemFromArray = (element) => {
     const taskArray = getDataFromStorage();
-    const taskID = Number(
-      btn.parentElement.parentElement.parentElement.getAttribute("data-index")
-    );
+    // const taskID = Number(
+    //   btn.parentElement.parentElement.parentElement.getAttribute("data-index")
+    // );
+    let taskID;
+    if (element.nodeName === "BUTTON") {
+      taskID = Number(
+        element.parentElement.parentElement.parentElement.getAttribute(
+          "data-index"
+        )
+      );
+    } else if (element.nodeName === "INPUT") {
+      taskID = Number(
+        element.parentElement.parentElement.getAttribute("data-index")
+      );
+    }
     // remove the item based on the taskID by filtering it
     const updatedArray = taskArray.filter((obj) => obj["taskID"] !== taskID);
     updateDataInStorage(updatedArray);
@@ -230,6 +242,7 @@ export default (function Tasks() {
     addDataToStorage,
     updateDataInStorage,
     getTaskToEdit,
+    removeItemFromArray,
     createTaskCards,
     createTaskElements,
     getWeek,
