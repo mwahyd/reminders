@@ -27,14 +27,16 @@ export const DOM = {
         this.onEditComplete();
       }
     });
-
     this.content.lastElementChild.addEventListener(
       "click",
       this.onCheckBoxClicked.bind(this)
     );
-
+    this.content.addEventListener("click", this.onClearAllBtn.bind(this));
+    this.content.lastElementChild.addEventListener(
+      "click",
+      this.delegateEditDelBtns.bind(this)
+    );
     this.sidebar.addEventListener("click", this.onSideBarClicked.bind(this));
-
     this.addTaskBtn.addEventListener("click", this.onAddBtnClicked.bind(this));
     this.saveFormBtn.addEventListener(
       "click",
@@ -43,10 +45,6 @@ export const DOM = {
     this.cancelFormBtn.addEventListener(
       "click",
       this.onFormBtnClicked.bind(this)
-    );
-    this.content.lastElementChild.addEventListener(
-      "click",
-      this.delegateEditDelBtns.bind(this)
     );
   },
 
@@ -152,6 +150,13 @@ export const DOM = {
       return;
     }
     pubsub.publish("checkBoxClicked", event.target, this.content);
+  },
+
+  onClearAllBtn: function (event) {
+    if (event.target.id !== "clear-btn") {
+      return;
+    }
+    pubsub.publish("clearAllBtnClicked", this.content);
   },
 
   // support functions
