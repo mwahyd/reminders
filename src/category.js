@@ -47,9 +47,9 @@ export default (function Category() {
   };
 
   const _displayDueThisWeek = ([dueToday, contentDiv]) => {
-    const today = new Date().toLocaleDateString("en-GB");
+    const today = new Date();
     const tasks = Tasks.getDataFromStorage();
-    const currentWeek = Tasks.getWeek(_convertDate(today));
+    const currentWeek = Tasks.getWeek(today);
     const dueThisWeek = tasks.filter((obj) => obj["week"] === currentWeek);
     _renderTasks(dueThisWeek, contentDiv);
   };
