@@ -94,13 +94,15 @@ export const DOM = {
   },
 
   onSideBarClicked: function (event) {
+    pubsub.publish("navClicked", this.addTaskBtn, this.content);
     console.log(event.target);
     if (event.target.classList.contains("dynamic")) {
       pubsub.publish(
         "categoryClicked",
         event.target,
         this.content,
-        this.sidebar.lastElementChild.lastElementChild
+        this.sidebar.lastElementChild.lastElementChild,
+        this.addTaskBtn
       );
     } else if (event.target.classList.contains("del-btn")) {
       pubsub.publish("catDelBtnClicked", event.target);
@@ -124,6 +126,14 @@ export const DOM = {
         break;
       case "priority-high":
         pubsub.publish("priorityClicked", event.target, this.content);
+        break;
+      case "completed":
+        pubsub.publish(
+          "completedClicked",
+          event.target,
+          this.content,
+          this.addTaskBtn
+        );
         break;
       case "category-btn":
         pubsub.publish("addCatBtnClicked", event.target, this.sidebar);
