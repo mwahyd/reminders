@@ -20,6 +20,7 @@ export default (function Category() {
     pubsub.subscribe("catSaveCancelClicked", _showBtnHideForm);
     pubsub.subscribe("newCatCreated", _saveCategory);
     pubsub.subscribe("catDelBtnClicked", _deleteCatWithTasks);
+    pubsub.subscribe("clearAllBtnClicked", _removeAllTasks);
 
     _renderCategories(catContainer);
   };
@@ -157,6 +158,11 @@ export default (function Category() {
       contentDiv.removeChild(contentDiv.children[0]);
     }
     console.log(contentDiv);
+  };
+
+  const _removeAllTasks = ([contentDiv]) => {
+    localStorage.removeItem("completed");
+    contentDiv.lastElementChild.innerHTML = "";
   };
 
   // * support functions
