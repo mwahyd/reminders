@@ -4,7 +4,6 @@ import Tasks from "./todos.js";
 export default (function Category() {
   // ! should not call document here ......
   const catContainer = document.querySelector("#category-container");
-  console.log(catContainer);
 
   const render = () => {
     // listen to each category event and fire associated func
@@ -55,7 +54,6 @@ export default (function Category() {
   };
 
   const _displayPriorityHandler = ([priority, contentDiv]) => {
-    console.log(priority);
     switch (priority.id) {
       case "priority-low":
         _displayPriority("low", contentDiv);
@@ -70,7 +68,6 @@ export default (function Category() {
   };
 
   const _displayPriority = (priority, contentDiv) => {
-    console.log(`prority: ${priority} clicked`);
     const allTasks = Tasks.getDataFromStorage();
     const priorityTasks = allTasks.filter(
       (obj) => obj["priority"] === priority
@@ -125,7 +122,6 @@ export default (function Category() {
       return;
     }
     const task = checkBox.parentElement.parentElement;
-    console.log(task);
     task.classList.add("striked");
     const taskArray = Tasks.getTaskToEdit(checkBox);
     checkBox.disabled = true;
@@ -200,7 +196,6 @@ export default (function Category() {
   const _renderCategories = (container) => {
     const categories = Tasks.getDataFromStorage("categories");
     catContainer.innerHTML = "";
-    console.log(categories);
     categories.forEach((cat) => {
       const div = document.createElement("div");
       const p = document.createElement("p");
