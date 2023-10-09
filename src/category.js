@@ -152,12 +152,17 @@ export default (function Category() {
     });
   };
 
-  const _handleNavClick = ([addBtn, contentDiv]) => {
+  const _handleNavClick = ([addBtn, contentDiv, sidebar]) => {
     addBtn.classList.remove("hidden");
     if (contentDiv.children[0].id === "clear-btn") {
       contentDiv.removeChild(contentDiv.children[0]);
     }
-    console.log(contentDiv);
+    const navItems = sidebar.querySelectorAll(".nav-item");
+    navItems.forEach((item) => {
+      if (item.classList.contains("selected")) {
+        item.classList.remove("selected");
+      }
+    });
   };
 
   const _removeAllTasks = ([contentDiv]) => {
