@@ -19,11 +19,33 @@ body {
   height: 100vh;
 }
 
-.container {
+.parent-grid {
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
   border: 2px solid red;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr 50px;
 }
+
+.main-grid {
+  border: 2px solid red;
+  display: grid;
+  grid-template-columns: 200px minmax(300px, 3fr);
+}
+
+#tasks-container {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* .container { */
+/* border: 2px solid red; */
+/* display: grid;
+  grid-template-columns: 1fr 3fr;
+} */
 
 .add.btn {
   background-color: transparent;
