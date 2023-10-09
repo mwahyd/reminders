@@ -36,24 +36,28 @@ export default (function Category() {
     const taskContainer = contentDiv.lastElementChild;
     taskContainer.className = "";
     Tasks.createTaskCards(contentDiv);
+    allButton.classList.add("selected");
   };
 
   const _displayDueToday = ([dueToday, contentDiv]) => {
     const today = new Date().toLocaleDateString("en-GB");
     const tasks = Tasks.getDataFromStorage();
     const dueT = tasks.filter((obj) => _convertDate(obj["dueDate"]) === today);
+    dueToday.classList.add("selected");
     _renderTasks(dueT, contentDiv);
   };
 
-  const _displayDueThisWeek = ([dueToday, contentDiv]) => {
+  const _displayDueThisWeek = ([dueWeek, contentDiv]) => {
     const today = new Date();
     const tasks = Tasks.getDataFromStorage();
     const currentWeek = Tasks.getWeek(today);
     const dueThisWeek = tasks.filter((obj) => obj["week"] === currentWeek);
+    dueWeek.classList.add("selected");
     _renderTasks(dueThisWeek, contentDiv);
   };
 
   const _displayPriorityHandler = ([priority, contentDiv]) => {
+    priority.classList.add("selected");
     switch (priority.id) {
       case "priority-low":
         _displayPriority("low", contentDiv);
@@ -135,6 +139,7 @@ export default (function Category() {
   };
 
   const _handleCompleted = ([completedNav, contentDiv, addTaskBtn]) => {
+    completedNav.classList.add("selected");
     const array = Tasks.getDataFromStorage("completed");
     const clearAllBtn = _clearAllBtn();
     addTaskBtn.classList.add("hidden");
