@@ -129,6 +129,10 @@ export default (function Category() {
     task.classList.add("striked");
     const taskArray = Tasks.getTaskToEdit(checkBox);
     checkBox.disabled = true;
+    const options =
+      checkBox.parentElement.nextElementSibling.nextElementSibling
+        .nextElementSibling.lastElementChild;
+    options.classList.add("hidden");
     // create new local storage for completed
     Tasks.addDataToStorage(taskArray[0], "completed");
     Tasks.removeItemFromArray(checkBox);
