@@ -10,7 +10,11 @@ export default (function TodoForm() {
   };
 
   const showFormHideButton = function ([addBtn, form, overlay]) {
-    addBtn.classList.add("hidden");
+    if (addBtn.nodeName === "SPAN") {
+      addBtn.parentElement.classList.add("hidden");
+    } else {
+      addBtn.classList.add("hidden");
+    }
     form.classList.remove("hidden");
     overlay.classList.remove("hidden");
   };
