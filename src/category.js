@@ -24,7 +24,11 @@ export default (function Category() {
     _renderCategories(catContainer);
   };
 
-  const _renderTasks = (tasks, contentDiv) => {
+  const _renderTasks = (tasks, contentDiv, title) => {
+    if (title) {
+      const h2 = contentDiv.firstElementChild.firstElementChild;
+      h2.textContent = title;
+    }
     contentDiv.lastElementChild.innerHTML = "";
     tasks.forEach((task) => {
       const elements = Tasks.createTaskElements(task);
@@ -37,6 +41,7 @@ export default (function Category() {
     taskContainer.className = "";
     Tasks.createTaskCards(contentDiv);
     allButton.classList.add("selected");
+    contentDiv.firstElementChild.firstElementChild.textContent = `${allButton.textContent} tasks`;
   };
 
   const _displayDueToday = ([dueToday, contentDiv]) => {
@@ -44,7 +49,7 @@ export default (function Category() {
     const tasks = Tasks.getDataFromStorage();
     const dueT = tasks.filter((obj) => _convertDate(obj["dueDate"]) === today);
     dueToday.classList.add("selected");
-    _renderTasks(dueT, contentDiv);
+    _renderTasks(dueT, contentDiv, `tasks due ${dueToday.textContent}`);
   };
 
   const _displayDueThisWeek = ([dueWeek, contentDiv]) => {
@@ -53,7 +58,7 @@ export default (function Category() {
     const currentWeek = Tasks.getWeek(today);
     const dueThisWeek = tasks.filter((obj) => obj["week"] === currentWeek);
     dueWeek.classList.add("selected");
-    _renderTasks(dueThisWeek, contentDiv);
+    _renderTasks(dueThisWeek, contentDiv, `tasks due ${dueWeek.textContent}`);
   };
 
   const _displayPriorityHandler = ([priority, contentDiv]) => {
@@ -76,7 +81,7 @@ export default (function Category() {
     const priorityTasks = allTasks.filter(
       (obj) => obj["priority"] === priority
     );
-    _renderTasks(priorityTasks, contentDiv);
+    _renderTasks(priorityTasks, contentDiv, `priority: ${priority}`);
   };
 
   const _showFormHideBtn = ([catBtn, sidebarDiv]) => {
@@ -105,7 +110,7 @@ export default (function Category() {
     const filtered = arrayList.filter(
       (obj) => obj["category"] === category.getAttribute("data-name")
     );
-    _renderTasks(filtered, contentDiv);
+    _renderTasks(filtered, contentDiv, category.textContent.slice(0, -1));
   };
 
   const _deleteCatWithTasks = ([event]) => {
@@ -143,10 +148,15 @@ export default (function Category() {
     const array = Tasks.getDataFromStorage("completed");
     const clearAllBtn = _clearAllBtn();
     addTaskBtn.classList.add("hidden");
-    if (contentDiv.children[0].id !== "clear-btn") {
-      contentDiv.insertBefore(clearAllBtn, addTaskBtn);
+    // if (contentDiv.children[0].id !== "clear-btn") {
+    //   contentDiv.insertBefore(clearAllBtn, addTaskBtn);
+    // }
+    if (contentDiv.firstElementChild.children[1].id !== "clear-btn") {
+      contentDiv.firstElementChild.insertBefore(clearAllBtn, addTaskBtn);
     }
-    _renderTasks(array, contentDiv);
+    // console.log(contentDiv.firstElementChild);
+    // console.log(contentDiv.firstElementChild.children);
+    _renderTasks(array, contentDiv, `${completedNav.textContent} tasks`);
     const list = contentDiv.lastElementChild.querySelectorAll("[data-index]");
     list.forEach((task) => {
       const options = task.lastElementChild.lastElementChild;
@@ -158,10 +168,17 @@ export default (function Category() {
   };
 
   const _handleNavClick = ([addBtn, contentDiv, sidebar]) => {
+    const contentHeader = contentDiv.firstElementChild;
+    contentHeader.firstElementChild.textContent = "";
     addBtn.classList.remove("hidden");
-    if (contentDiv.children[0].id === "clear-btn") {
-      contentDiv.removeChild(contentDiv.children[0]);
+    // if (contentDiv.children[0].id === "clear-btn") {
+    //   contentDiv.removeChild(contentDiv.children[0]);
+    // }
+    const clearBtn = contentHeader.children[1];
+    if (clearBtn.id === "clear-btn") {
+      contentHeader.removeChild(clearBtn);
     }
+
     const navItems = sidebar.querySelectorAll(".nav-item");
     navItems.forEach((item) => {
       if (item.classList.contains("selected")) {
@@ -203,14 +220,16 @@ export default (function Category() {
     catContainer.innerHTML = "";
     categories.forEach((cat) => {
       const div = document.createElement("div");
-      const p = document.createElement("p");
+      // const p = document.createElement("p");
       const del = document.createElement("span");
-      p.textContent = cat;
+      // p.textContent = cat;
+      // p.classList.add("dynamic");
+      div.textContent = cat;
       del.textContent = "\u2716";
       del.classList.add("del-btn");
       div.setAttribute("data-name", cat.replace(/\s/g, ""));
       div.classList.add("nav-item", "dynamic");
-      div.append(p, del);
+      div.append(del);
       container.appendChild(div);
     });
   };
