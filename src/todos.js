@@ -37,6 +37,7 @@ export default (function Tasks() {
   };
 
   const createTaskCards = (contentDiv, arrayName, className = null) => {
+    contentDiv.firstElementChild.firstElementChild.textContent = "all tasks";
     let tasks = getDataFromStorage(arrayName);
     if (className) {
       tasks = tasks.filter((obj) => obj["category"] === className);
@@ -136,7 +137,7 @@ export default (function Tasks() {
 
   const _displayForm = (contentDiv) => {
     TodoForm.showFormHideButton([
-      contentDiv.children[0],
+      contentDiv.firstElementChild.children[1],
       contentDiv.children[1],
       contentDiv.children[2],
     ]);
@@ -196,13 +197,13 @@ export default (function Tasks() {
     container.innerHTML = `
       <div class="task-header flex-sb">
         <p><span id="taskID">&#10747;</span> <span>${obj["taskID"]}</span></p>
-        <p><span id="taskID">&#x24D8;</span> <span>${obj["priority"]}</span></p>
+        <p><span id="prio">&#x24D8;</span> <span class="bold">${obj["priority"]}</span></p>
         <p><span id="issuedD">&#128337;</span> <span>${is}</span>
       </div>
 
-      <label for="checkbox">checkbox: <input type="checkbox" id="checkbox" title="task completed?"  /></label>
+      <label>status: <input type="checkbox" name="status" class="checkbox" title="task completed?"  /></label>
       <div id="task-title"><p>title: <span class="bold">${obj["title"]}</span></p></div>
-      <div id="task-description"><p>description: <span>${obj["description"]}</span></p></div>
+      <div id="task-description"><p>description: <em>${obj["description"]}</em></p></div>
       <div id="task-due" class="flex-sb">
         <p><span id="dueD">&#128198;</span> <span>${due}</span></p>
         <div class="options">
