@@ -87,6 +87,7 @@ header {
 #sec-header {
   padding: 3px 10px;
   letter-spacing: 2px;
+  pointer-events: none;
 }
 
 .category {
@@ -138,6 +139,15 @@ header {
   margin-bottom: 5px;
 }
 
+/* content header */
+#content-header {
+  border: 2px solid red;
+  padding: 0.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 /* task card */
 #tasks-container [data-index] {
   border: 2px solid var(--primary-colour);
@@ -185,19 +195,26 @@ header {
   background-color: var(--accent-light);
 }
 
-.add.btn {
+#add-icon {
+  font-size: 4rem;
+}
+
+#add-btn {
+  width: 100px;
+  padding: 0;
   background-color: transparent;
   border-radius: 5px;
-  box-shadow: 0 0 10px 10px rgba(201, 201, 201, 0.3);
+  border: none;
+  box-shadow: 3px 3px 2.6px var(--primary-colour-light);
 }
 
-.add.btn::before {
-  content: "\002B";
-  font-size: 5rem;
-}
-
-.add.btn:hover {
-  background-color: #ededed;
+#add-btn:hover {
+  background: linear-gradient(
+    to right,
+    var(--primary-colour),
+    var(--primary-colour-light)
+  );
+  box-shadow: none;
 }
 
 .modal {
@@ -225,7 +242,7 @@ header {
 /* ? action classes */
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .blur {
@@ -245,6 +262,12 @@ header {
 .flex-sb {
   display: flex;
   justify-content: space-between;
+}
+
+.flex-ct-ev {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .red-border {
