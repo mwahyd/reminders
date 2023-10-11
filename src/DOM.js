@@ -86,9 +86,10 @@ export const DOM = {
   },
 
   onSideBarClicked: function (event) {
-    pubsub.publish("navClicked", this.addTaskBtn, this.content, this.sidebar);
-    if (event.target.id === "sec-header" || event.target.id === "nav-cat-cont")
+    if (event.target.id === "sidebar" || event.target.id === "sec-header") {
       return;
+    }
+    pubsub.publish("navClicked", this.addTaskBtn, this.content, this.sidebar);
     if (event.target.classList.contains("dynamic")) {
       pubsub.publish(
         "categoryClicked",
