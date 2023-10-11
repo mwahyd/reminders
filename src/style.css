@@ -33,7 +33,6 @@ html {
 
 body {
   font-size: 1.5rem;
-  /* font-size: clamp(1.3rem, 1.5rem, 1.7rem); */
   text-transform: capitalize;
   height: 100vh;
   background-color: var(--bg-colour);
@@ -82,7 +81,6 @@ header h1 {
 }
 
 .nav-item {
-  /* text-align: left; */
   padding: 3px 1.3rem;
 }
 
@@ -113,17 +111,7 @@ header h1 {
   padding: 10px;
   margin-bottom: 1rem;
   border-radius: 10px;
-  /* outline: 0 none; */
 }
-
-/* #cat-form > input:focus,
-#form input:focus,
-#form textarea:focus,
-#form select:focus {
-  border-color: rgba(104, 144, 161);
-  box-shadow: 0 1px 1px rgba(104, 144, 161) inset, 0 0 8px rgba(104, 144, 161);
-  outline: 0 none;
-} */
 
 #tasks-container .edit.btn,
 #tasks-container .delete.btn,
@@ -155,7 +143,6 @@ header h1 {
 
 /* content header */
 #content-header {
-  /* border: 2px solid red; */
   padding: 0.5rem 2rem;
   display: flex;
   align-items: center;
@@ -249,7 +236,6 @@ header h1 {
 
 /* form modal */
 #form {
-  /* border: 2px solid red; */
   box-shadow: 0px 0.5rem 2rem var(--primary-colour);
   border-radius: 10px;
   width: 30rem;
@@ -263,7 +249,6 @@ header h1 {
 #form select {
   font-size: 1.5rem;
   display: block;
-  /* outline: none; */
   padding: 3px 0.5rem;
 }
 
@@ -281,14 +266,10 @@ header h1 {
 }
 
 #form .confirmation {
-  /* border: 2px solid red; */
   margin-top: 1rem;
   display: flex;
   gap: 1rem;
 }
-
-/* #form #save-btn {
-} */
 
 .modal {
   position: fixed;
@@ -315,17 +296,7 @@ footer a {
   color: var(--font-colour);
 }
 
-/* .dynamic {
-  display: flex;
-  justify-content: space-between;
-} */
-
-/* .dynamic:hover {
-  border: 2px solid blue;
-} */
-
 /* ? action classes */
-
 .hidden {
   display: none !important;
 }
