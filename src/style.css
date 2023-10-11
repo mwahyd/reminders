@@ -1,10 +1,10 @@
 :root {
-  --bg-colour: #1f141c;
-  --primary-colour: #9ba18a;
-  --primary-colour-light: #c3ccad;
-  --secondary-colour: #261821;
-  --accent: #445c66;
-  --accent-light: #6890a1;
+  --bg-colour: rgb(31, 20, 28);
+  --primary-colour: rgb(155, 161, 138);
+  --primary-colour-light: rgb(195, 204, 173);
+  --secondary-colour: rgb(38, 24, 33);
+  --accent: rgb(68, 92, 102);
+  --accent-light: rgb(104, 144, 161);
 }
 
 @font-face {
@@ -30,7 +30,7 @@ html {
 }
 
 body {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   text-transform: capitalize;
   height: 100vh;
   background-color: var(--bg-colour);
@@ -105,12 +105,17 @@ header {
   padding: 10px;
   margin-bottom: 5px;
   border-radius: 10px;
-  outline: none;
+  /* outline: 0 none; */
 }
 
-#cat-form > input:focus {
-  border: 3px solid var(--accent);
-}
+/* #cat-form > input:focus,
+#form input:focus,
+#form textarea:focus,
+#form select:focus {
+  border-color: rgba(104, 144, 161);
+  box-shadow: 0 1px 1px rgba(104, 144, 161) inset, 0 0 8px rgba(104, 144, 161);
+  outline: 0 none;
+} */
 
 #tasks-container .edit.btn,
 #tasks-container .delete.btn,
@@ -120,12 +125,14 @@ header {
   width: calc((100% / 2) - 3px);
 }
 
-#cat-form .save.btn {
+#cat-form .save.btn,
+#form .save.btn {
   background-color: var(--primary-colour);
   border: 2px solid var(--primary-colour);
 }
 
-#cat-form .save.btn:hover {
+#cat-form .save.btn:hover,
+#form .save.btn:hover {
   background-color: var(--primary-colour-light);
 }
 
@@ -141,7 +148,7 @@ header {
 
 /* content header */
 #content-header {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   padding: 0.5rem 2rem;
   display: flex;
   align-items: center;
@@ -177,6 +184,10 @@ header {
 [data-index] #prio,
 [data-index] #taskID {
   color: var(--accent-light);
+}
+
+[data-index] em {
+  text-transform: lowercase;
 }
 
 /* buttons */
@@ -217,8 +228,51 @@ header {
   box-shadow: none;
 }
 
+/* form modal */
+#form {
+  /* border: 2px solid red; */
+  box-shadow: 0px 0.5rem 2rem var(--primary-colour);
+  border-radius: 10px;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+#form input,
+#form textarea,
+#form select {
+  font-size: 1.5rem;
+  display: block;
+  /* outline: none; */
+  padding: 3px 0.5rem;
+}
+
+#form input[type="text"] {
+  height: 3rem;
+}
+
+#form textarea {
+  resize: none;
+}
+
+#form input:not(input[type="date"]),
+#form textarea {
+  width: 100%;
+}
+
+#form .confirmation {
+  /* border: 2px solid red; */
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+#form #save-btn {
+}
+
 .modal {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -230,14 +284,14 @@ header {
   cursor: pointer;
 }
 
-.dynamic {
+/* .dynamic {
   display: flex;
   justify-content: space-between;
-}
+} */
 
-.dynamic:hover {
-  /* border: 2px solid blue; */
-}
+/* .dynamic:hover {
+  border: 2px solid blue;
+} */
 
 /* ? action classes */
 
@@ -250,7 +304,7 @@ header {
   inset: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(3px);
   z-index: 1;
 }
