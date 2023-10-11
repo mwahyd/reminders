@@ -3,8 +3,8 @@
   --primary-colour: #9ba18a;
   --primary-colour-light: #c3ccad;
   --secondary-colour: #261821;
-  --accent: #6890a1;
-  --accent-dark: #445c66;
+  --accent: #445c66;
+  --accent-light: #6890a1;
 }
 
 @font-face {
@@ -30,7 +30,7 @@ html {
 }
 
 body {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   text-transform: capitalize;
   height: 100vh;
   background-color: var(--bg-colour);
@@ -55,7 +55,8 @@ body {
 #tasks-container {
   display: grid;
   gap: 15px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  padding: 15px;
 }
 
 /* header */
@@ -70,12 +71,11 @@ header {
 
 /* aside */
 #sidebar {
-  border: 2px solid red;
   border-right: 10px solid var(--accent);
 }
 
 .nav-item {
-  text-align: center;
+  /* text-align: left; */
   padding: 3px 10px;
 }
 
@@ -111,9 +111,11 @@ header {
   border: 3px solid var(--accent);
 }
 
+#tasks-container .edit.btn,
+#tasks-container .delete.btn,
 #cat-form .save.btn,
 #cat-form .cancel.btn {
-  padding: 3px 1px;
+  padding: 3px 5px;
   width: calc((100% / 2) - 3px);
 }
 
@@ -124,6 +126,28 @@ header {
 
 #cat-form .save.btn:hover {
   background-color: var(--primary-colour-light);
+}
+
+/* category */
+
+#category-container {
+  margin-top: 5px;
+}
+
+#category-container > * {
+  margin-bottom: 5px;
+}
+
+/* task card */
+#tasks-container [data-index] {
+  border: 2px solid var(--primary-colour);
+  border-radius: 10px;
+  height: 20rem;
+  padding: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 /* buttons */
@@ -139,7 +163,7 @@ header {
 }
 
 .btn:hover {
-  background-color: var(--accent-dark);
+  background-color: var(--accent-light);
 }
 
 .add.btn {
@@ -176,7 +200,7 @@ header {
 }
 
 .dynamic:hover {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
 }
 
 /* ? action classes */
