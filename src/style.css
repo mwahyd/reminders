@@ -1,10 +1,10 @@
 :root {
-  --bg-colour: rgb(31, 20, 28);
-  --primary-colour: rgb(155, 161, 138);
-  --primary-colour-light: rgb(195, 204, 173);
-  --secondary-colour: rgb(38, 24, 33);
-  --accent: rgb(68, 92, 102);
-  --accent-light: rgb(104, 144, 161);
+  --bg-colour: #1f141c;
+  --primary-colour: #9ba18a;
+  --primary-colour-light: #c3ccad;
+  --secondary-colour: #261821;
+  --accent: #445c66;
+  --accent-light: #6890a1;
 }
 
 @font-face {
@@ -30,7 +30,8 @@ html {
 }
 
 body {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
+  /* font-size: clamp(1.3rem, 1.5rem, 1.7rem); */
   text-transform: capitalize;
   height: 100vh;
   background-color: var(--bg-colour);
@@ -38,7 +39,6 @@ body {
 }
 
 /* grids */
-
 .parent-grid {
   height: 100%;
   display: grid;
@@ -60,7 +60,6 @@ body {
 }
 
 /* header */
-
 header {
   padding: 2rem 3rem;
   font-size: 2.5rem;
@@ -71,12 +70,12 @@ header {
 
 /* aside */
 #sidebar {
-  border-right: 10px solid var(--accent);
+  border-right: 1rem solid var(--accent);
 }
 
 .nav-item {
   /* text-align: left; */
-  padding: 3px 10px;
+  padding: 3px 1.3rem;
 }
 
 .nav-item:hover {
@@ -85,8 +84,9 @@ header {
 }
 
 #sec-header {
-  padding: 3px 10px;
-  letter-spacing: 2px;
+  padding: 3px 1rem;
+  text-align: center;
+  letter-spacing: 4px;
   pointer-events: none;
 }
 
@@ -137,7 +137,6 @@ header {
 }
 
 /* category */
-
 #category-container {
   margin-top: 5px;
 }
@@ -159,8 +158,8 @@ header {
 #tasks-container [data-index] {
   border: 2px solid var(--primary-colour);
   border-radius: 10px;
-  height: 20rem;
-  padding: 5px;
+  min-height: 20rem;
+  padding: 1rem;
 
   display: flex;
   flex-direction: column;
@@ -186,8 +185,12 @@ header {
   color: var(--accent-light);
 }
 
-[data-index] em {
+[data-index] .des {
   text-transform: lowercase;
+}
+
+[data-index] > * {
+  margin-top: 0.5rem;
 }
 
 /* buttons */
@@ -210,22 +213,29 @@ header {
   font-size: 4rem;
 }
 
-#add-btn {
+#add-btn,
+#clear-btn {
   width: 100px;
-  padding: 0;
+  padding: 0 0.7rem;
   background-color: transparent;
   border-radius: 5px;
   border: none;
   box-shadow: 3px 3px 2.6px var(--primary-colour-light);
+  cursor: pointer;
 }
 
-#add-btn:hover {
+#add-btn:hover,
+#clear-btn:hover {
   background: linear-gradient(
     to right,
     var(--primary-colour),
     var(--primary-colour-light)
   );
   box-shadow: none;
+}
+
+#clear-btn {
+  padding: 1rem;
 }
 
 /* form modal */
@@ -268,8 +278,8 @@ header {
   gap: 1rem;
 }
 
-#form #save-btn {
-}
+/* #form #save-btn {
+} */
 
 .modal {
   position: fixed;
@@ -311,6 +321,14 @@ header {
 
 .bold {
   font-weight: bold;
+}
+
+.t-bold {
+  font-weight: 400;
+}
+
+.l-bold {
+  font-weight: 100;
 }
 
 .flex-sb {
