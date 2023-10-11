@@ -201,9 +201,9 @@ export default (function Tasks() {
         <p><span id="issuedD">&#128337;</span> <span>${is}</span>
       </div>
 
-      <label>status: <input type="checkbox" name="status" class="checkbox" title="task completed?"  /></label>
-      <div id="task-title"><p>title: <span class="bold">${obj["title"]}</span></p></div>
-      <div id="task-description"><p>description: <em>${obj["description"]}</em></p></div>
+      <label class="bold">status: <input type="checkbox" name="status" class="checkbox" title="task completed?"  /></label>
+      <div id="task-title"><span class="bold">title:</span> <em class ="t-bold">${obj["title"]}</em></div>
+      <div id="task-description"><span class="bold">description:</span> <em class= "des l-bold">${obj["description"]}</em></div>
       <div id="task-due" class="flex-sb">
         <p><span id="dueD">&#128198;</span> <span>${due}</span></p>
         <div class="options">
