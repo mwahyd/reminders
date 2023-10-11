@@ -148,6 +148,25 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  position: relative;
+}
+
+#tasks-container .checkbox {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-left: 3px;
+  cursor: pointer;
+  vertical-align: text-bottom;
+}
+
+[data-index] .task-header {
+  border-bottom: 1.5px dashed var(--accent);
+  padding-bottom: 2px;
+}
+
+[data-index] #prio,
+[data-index] #taskID {
+  color: var(--accent-light);
 }
 
 /* buttons */
