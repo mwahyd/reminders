@@ -381,8 +381,8 @@ footer a {
 
 .hide {
   position: relative;
-  transform: translateX(-17.5rem);
-  transition: transform 300ms ease-out;
+  margin-left: -17.5rem;
+  transition: margin-left 250ms ease-out;
 
   #toggle-btn {
     transition: all 0.7s;
@@ -394,8 +394,8 @@ footer a {
 
 .show {
   position: relative;
-  transform: translateX(0rem);
-  transition: transform 300ms ease-out;
+  margin-left: 0rem;
+  transition: margin-left 250ms ease-in;
 
   #toggle-btn {
     transition: all 0.7s;
@@ -403,10 +403,6 @@ footer a {
     transform: scaleX(1);
     right: -0.5rem;
   }
-}
-
-.extend-width {
-  width: calc(100% + 17.5rem);
 }
 
 body::-webkit-scrollbar {
