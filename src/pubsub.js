@@ -9,12 +9,11 @@ export const pubsub = {
     this.events[eventName].push(func);
   },
 
-  unsubscribe: function (eventName, func) {
-    // remove func from the event list to stop listening
-  },
+  // unsubscribe: function (eventName, func) {
+  //   // remove func from the event list to stop listening
+  // },
 
   publish: function (eventName, ...data) {
-    console.dir(`PUBSUB: broadcast about ${eventName} with ${data}`);
     // announce the event to anyone who is subscribed
     if (this.events[eventName]) {
       this.events[eventName].forEach((func) => func(data));
