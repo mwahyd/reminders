@@ -135,7 +135,6 @@ export default (function Category() {
     const task = checkBox.parentElement.parentElement;
     task.classList.add("striked");
     const taskArray = Tasks.getTaskToEdit(checkBox);
-    console.log(checkBox);
     checkBox.disabled = true;
     const options =
       checkBox.parentElement.nextElementSibling.nextElementSibling
@@ -151,14 +150,9 @@ export default (function Category() {
     const array = Tasks.getDataFromStorage("completed");
     const clearAllBtn = _clearAllBtn();
     addTaskBtn.classList.add("hidden");
-    // if (contentDiv.children[0].id !== "clear-btn") {
-    //   contentDiv.insertBefore(clearAllBtn, addTaskBtn);
-    // }
     if (contentDiv.firstElementChild.children[1].id !== "clear-btn") {
       contentDiv.firstElementChild.insertBefore(clearAllBtn, addTaskBtn);
     }
-    // console.log(contentDiv.firstElementChild);
-    // console.log(contentDiv.firstElementChild.children);
     _renderTasks(array, contentDiv, `${completedNav.textContent} tasks`);
     const list = contentDiv.lastElementChild.querySelectorAll("[data-index]");
     list.forEach((task) => {
@@ -172,12 +166,8 @@ export default (function Category() {
 
   const _handleNavClick = ([addBtn, contentDiv, sidebar]) => {
     const contentHeader = contentDiv.firstElementChild;
-    // contentHeader.firstElementChild.textContent = "";
-    addBtn.classList.remove("hidden");
-    // if (contentDiv.children[0].id === "clear-btn") {
-    //   contentDiv.removeChild(contentDiv.children[0]);
-    // }
     const clearBtn = contentHeader.children[1];
+    addBtn.classList.remove("hidden");
     if (clearBtn.id === "clear-btn") {
       contentHeader.removeChild(clearBtn);
     }
@@ -233,10 +223,7 @@ export default (function Category() {
     catContainer.innerHTML = "";
     categories.forEach((cat) => {
       const div = document.createElement("div");
-      // const p = document.createElement("p");
       const del = document.createElement("span");
-      // p.textContent = cat;
-      // p.classList.add("dynamic");
       div.textContent = cat;
       del.textContent = "\u2716";
       del.classList.add("del-btn");
