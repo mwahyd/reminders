@@ -39,7 +39,7 @@ body {
   color: var(--font-colour);
 }
 
-/* grids */
+/* * grids */
 .parent-grid {
   height: 100%;
   display: grid;
@@ -48,19 +48,19 @@ body {
 }
 
 .main-grid {
-  /* border: 2px solid red; */
   display: grid;
   grid-template-columns: 180px minmax(300px, 3fr);
 }
 
 #tasks-container {
   display: grid;
-  gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  padding: 15px;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 1.5rem;
+  margin-left: 1rem;
 }
 
-/* header */
+/* * header */
 header {
   padding: 2rem 3rem;
   font-size: 2.5rem;
@@ -75,9 +75,11 @@ header h1 {
   -webkit-background-clip: text;
 }
 
-/* aside */
+/* * aside */
 #sidebar {
   border-right: 1rem solid var(--accent);
+  position: relative;
+  transition: transform 300ms ease-in;
 }
 
 .nav-item {
@@ -132,7 +134,7 @@ header h1 {
   background-color: var(--primary-colour-light);
 }
 
-/* category */
+/* * category */
 #category-container {
   margin-top: 5px;
 }
@@ -141,7 +143,7 @@ header h1 {
   margin-bottom: 5px;
 }
 
-/* content header */
+/* * content header */
 #content-header {
   padding: 0.5rem 2rem;
   display: flex;
@@ -149,7 +151,7 @@ header h1 {
   gap: 20px;
 }
 
-/* task card */
+/* * task card */
 #tasks-container [data-index] {
   border: 2px solid var(--primary-colour);
   border-radius: 10px;
@@ -189,7 +191,7 @@ header h1 {
   margin-top: 0.5rem;
 }
 
-/* buttons */
+/* * buttons */
 .btn {
   padding: 10px;
   width: 100%;
@@ -203,6 +205,10 @@ header h1 {
 
 .btn:hover {
   background-color: var(--accent-light);
+}
+
+#category-btn {
+  margin-bottom: 1rem;
 }
 
 #add-icon {
@@ -234,7 +240,22 @@ header h1 {
   padding: 1rem;
 }
 
-/* form modal */
+#toggle-btn {
+  width: 2rem;
+  height: 3rem;
+  border: 2px solid var(--accent);
+  border-radius: 0.5rem;
+  color: var(--font-colour);
+  background-color: transparent;
+  cursor: pointer;
+
+  position: absolute;
+  top: 17rem;
+  right: -0.5rem;
+  z-index: 3;
+}
+
+/* * form modal */
 #form {
   box-shadow: 0px 0.5rem 2rem var(--primary-colour);
   border-radius: 10px;
@@ -284,7 +305,7 @@ header h1 {
   cursor: pointer;
 }
 
-/* footer */
+/* * footer */
 footer {
   text-align: center;
   padding: 0.5rem;
@@ -361,4 +382,30 @@ footer a {
 .width80-centre {
   width: 80%;
   margin: 0 auto;
+}
+
+.hide {
+  position: relative;
+  transform: translateX(-17.5rem);
+  transition: transform 300ms ease-out;
+
+  #toggle-btn {
+    transition: all 0.7s;
+    transform: rotate(180deg);
+    transform: scaleX(-1);
+    right: -2.5rem;
+  }
+}
+
+.show {
+  position: relative;
+  transform: translateX(0rem);
+  transition: transform 300ms ease-out;
+
+  #toggle-btn {
+    transition: all 0.7s;
+    transform: rotate(-180deg);
+    transform: scaleX(1);
+    right: -0.5rem;
+  }
 }
