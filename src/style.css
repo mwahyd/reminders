@@ -105,7 +105,7 @@ header h1 {
 #cat-form,
 .category.btn {
   width: 80%;
-  margin: 0 auto;
+  margin: 0.5rem auto;
 }
 
 #cat-form > input {
