@@ -13,13 +13,14 @@ Features:
 - create separate task categories
 - fill each category with independant tasks
 - categories are deletable
--
 
-Tools and techniques:
+Tools
 
 - javascript
 - css
 - html
+
+Methods:
 
 - use webpack to bundle the app
 - use ES6: modules to partition the code
