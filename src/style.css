@@ -246,7 +246,7 @@ header h1 {
   cursor: pointer;
 
   position: absolute;
-  top: 17rem;
+  top: 50%;
   right: -0.5rem;
 }
 
