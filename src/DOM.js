@@ -138,11 +138,14 @@ export const DOM = {
       case "cat-cancel-btn":
         pubsub.publish("catSaveCancelClicked", event, this.sidebar);
         break;
+      case "toggle-btn":
+        pubsub.publish("toggleBtnClicked", event, this.sidebar);
+        break;
     }
   },
 
   onCheckBoxClicked: function (event) {
-    if (event.target.id !== "checkbox") {
+    if (event.target.name !== "status") {
       return;
     }
     pubsub.publish("checkBoxClicked", event.target, this.content);
