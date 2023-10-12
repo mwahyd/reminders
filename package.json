@@ -4,6 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "webpack"
   },
   "repository": {
@@ -16,9 +18,10 @@
   "bugs": {
     "url": "https://github.com/mwahyd/todo-list/issues"
   },
-  "homepage": "https://github.com/mwahyd/todo-list#readme",
+  "homepage": "https://mwahyd.github.io/todo-list",
   "devDependencies": {
     "css-loader": "^6.8.1",
+    "gh-pages": "^6.0.0",
     "html-webpack-plugin": "^5.5.3",
     "style-loader": "^3.3.3",
     "webpack": "^5.88.2",
