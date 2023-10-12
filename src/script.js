@@ -1,4 +1,4 @@
-// import style from "./style.css";
+import style from "./style.css";
 import TodoForm from "./todo-form.js";
 import Tasks from "./todos.js";
 import Category from "./category.js";
