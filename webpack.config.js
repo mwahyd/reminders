@@ -11,7 +11,12 @@ module.exports = {
     filename: "[name].bundle.js",
   },
   //loaders
-
+  module: {
+    rules: [
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      { test: /\.(woff|woff2)$/i, type: "asset/resource" },
+    ],
+  },
   //plugins
   plugins: [
     new HtmlWebpackPlugin({
