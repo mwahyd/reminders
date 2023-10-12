@@ -20,6 +20,7 @@ export default (function Category() {
     pubsub.subscribe("newCatCreated", _saveCategory);
     pubsub.subscribe("catDelBtnClicked", _deleteCatWithTasks);
     pubsub.subscribe("clearAllBtnClicked", _removeAllTasks);
+    pubsub.subscribe("toggleBtnClicked", _toggleSidebar);
 
     _renderCategories(catContainer);
   };
@@ -110,6 +111,7 @@ export default (function Category() {
     const filtered = arrayList.filter(
       (obj) => obj["category"] === category.getAttribute("data-name")
     );
+    category.classList.add("flex-sb");
     _renderTasks(filtered, contentDiv, category.textContent.slice(0, -1));
   };
 
@@ -133,6 +135,7 @@ export default (function Category() {
     const task = checkBox.parentElement.parentElement;
     task.classList.add("striked");
     const taskArray = Tasks.getTaskToEdit(checkBox);
+    console.log(checkBox);
     checkBox.disabled = true;
     const options =
       checkBox.parentElement.nextElementSibling.nextElementSibling
@@ -169,7 +172,7 @@ export default (function Category() {
 
   const _handleNavClick = ([addBtn, contentDiv, sidebar]) => {
     const contentHeader = contentDiv.firstElementChild;
-    contentHeader.firstElementChild.textContent = "";
+    // contentHeader.firstElementChild.textContent = "";
     addBtn.classList.remove("hidden");
     // if (contentDiv.children[0].id === "clear-btn") {
     //   contentDiv.removeChild(contentDiv.children[0]);
@@ -190,6 +193,16 @@ export default (function Category() {
   const _removeAllTasks = ([contentDiv]) => {
     localStorage.removeItem("completed");
     contentDiv.lastElementChild.innerHTML = "";
+  };
+
+  const _toggleSidebar = ([toggleBtn, sidebar]) => {
+    if (sidebar.parentElement.classList.contains("hide")) {
+      sidebar.parentElement.classList.remove("hide");
+      sidebar.parentElement.classList.add("show");
+    } else {
+      sidebar.parentElement.classList.add("hide");
+      sidebar.parentElement.classList.remove("show");
+    }
   };
 
   // * support functions
