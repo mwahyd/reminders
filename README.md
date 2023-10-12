@@ -1,6 +1,6 @@
 # Project: Reminders
 
-[Live demo](https://github.com/mwahyd/todo-list)
+[Live demo](https://mwahyd.github.io/todo-list/)
 
 Features:
 
